@@ -19,9 +19,3 @@ jobs:
 
       - name: Setup build
         uses: gradle/gradle-build-action@v2
-
-      - name: Execute gradle assemble
-        env:
-          MAVEN_USERNAME: ${{ secrets.REPSY_LOGIN }}
-          MAVEN_PASSWORD: ${{ secrets.REPSY_PASS }}
-        run: ./gradlew assemble
