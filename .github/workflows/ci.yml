@@ -8,10 +8,6 @@ on:
   push:
 
 jobs:
-  grantpermission:
-    name: Grant execute permission for gradlew
-    run: chmod +x ./gradlew
-
   build:
     name: Build application
     uses: ./.github/workflows/run_build_job.yml
