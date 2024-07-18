@@ -18,7 +18,4 @@ jobs:
           distribution: 'temurin'
 
       - name: SonarLint for main with Gradle
-        env:
-          MAVEN_USERNAME: ${{ secrets.REPSY_LOGIN }}
-          MAVEN_PASSWORD: ${{ secrets.REPSY_PASS }}
         run: ./gradlew sonarlintMain

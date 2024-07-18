@@ -17,11 +17,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup build
-        env:
-          MAVEN_USERNAME: ${{ secrets.REPSY_LOGIN }}
-          MAVEN_PASSWORD: ${{ secrets.REPSY_PASS }}
-        uses: gradle/gradle-build-action@v2
-
       - name: Execute gradle test
         run: ./gradlew test

@@ -8,25 +8,25 @@ on:
   push:
 
 jobs:
+  grantpermission:
+    name: Grant execute permission for gradlew
+    run: chmod +x ./gradlew
+
   build:
     name: Build application
     uses: ./.github/workflows/run_build_job.yml
-    secrets: inherit
 
   test:
     needs: build
     name: Test application
     uses: ./.github/workflows/run_tests_job.yml
-    secrets: inherit
 
   sonarlint:
     needs: build
     name: Check application style via sonarlint
     uses: ./.github/workflows/run_sonarlint_job.yml
-    secrets: inherit
 
   checkstyle:
     needs: build
     name: Check application style via checkstyle
     uses: ./.github/workflows/run_checkstyle_job.yml
-    secrets: inherit
