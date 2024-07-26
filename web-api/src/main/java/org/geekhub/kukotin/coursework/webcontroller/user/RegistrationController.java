@@ -1,15 +1,16 @@
 package org.geekhub.kukotin.coursework.webcontroller.user;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.WebRequest;
 
-@Controller
-@RequestMapping("/registration")
+
 public class RegistrationController {
+    @GetMapping("/registration")
+    public String showRegistrationForm(WebRequest request, Model model) {
 
-    @GetMapping
-    public String showRegistrationForm() {
+        UserDTO userDto = new UserDTO();
+        model.addAttribute("user", userDto);
         return "registration";
     }
 }
