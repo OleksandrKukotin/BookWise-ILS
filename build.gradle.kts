@@ -35,7 +35,7 @@ allprojects {
         implementation("com.google.code.findbugs:jsr305:3.0.2")
         implementation("org.springframework.boot:spring-boot-starter-web:3.3.2")
         implementation("org.springframework.boot:spring-boot-starter-jdbc:3.3.2")
-        implementation("org.springframework.boot:spring-boot-starter-security:3.3.2")
+//        implementation("org.springframework.boot:spring-boot-starter-security:3.3.2")
         implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.3.2")
         implementation("org.springframework.boot:spring-boot-starter-actuator:3.3.2")
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
