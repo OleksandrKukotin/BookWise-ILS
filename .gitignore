@@ -18,8 +18,10 @@ out/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# files with credentials
-/.env/repsy.env
-/Homework/java-web/src/main/resources/env.properties
-/Homework/java-core/14-JDBC/Homework-Example/src/main/resources/env.properties
-/Homework/java-core/14-JDBC/src/main/resources/env.properties
+#other
+/wrapper/
+/native/
+/jdks/
+/daemon/
+/caches/
+/.tmp/
