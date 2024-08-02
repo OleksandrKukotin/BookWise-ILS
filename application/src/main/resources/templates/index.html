@@ -11,12 +11,14 @@
 <body>
 <div class="container">
     <h1>BookWise ILS</h1>
+    <p>Welcome, <div sec:authentication="name"></div></p>
     <p>Your one-stop solution for managing library resources with ease</p>
     <ul style="list-style-type: none">
         <li><a href="/swagger-ui/index.html">API</a></li>
-        <li><a href="/logout">Logout</a></li>
-        <li><a href="/register">Register</a></li>
         <li><a href="/test">Security test page</a> </li>
+        <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
     </ul>
 </div>
 <div class="container">

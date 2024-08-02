@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.controller;
+package org.geekhub.kukotin.coursework.webcontroller.user.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
