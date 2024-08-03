@@ -25,4 +25,6 @@ hs_err_pid*
 /daemon/
 /caches/
 /.tmp/
-/.env/
+
+#credentials
+.env/

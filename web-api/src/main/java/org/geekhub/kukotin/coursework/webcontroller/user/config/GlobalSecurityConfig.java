@@ -1,5 +1,6 @@
 package org.geekhub.kukotin.coursework.webcontroller.user.config;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,9 +42,10 @@ public class GlobalSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        Dotenv dotenv = Dotenv.configure().filename(".env/pass.env").load();
         UserDetails librarian = User.builder()
             .username("librarius")
-            .password(passwordEncoder.encode(System.getenv("SPRING_SECURITY_TEST_PASSWORD")))
+            .password(passwordEncoder.encode(dotenv.get("SPRING_SECURITY_TEST_PASSWORD")))
             .roles("LIBRARIAN")
             .build();
         JdbcUserDetailsManager detailsManager = new JdbcUserDetailsManager(dataSource);
