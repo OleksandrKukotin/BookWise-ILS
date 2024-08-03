@@ -43,7 +43,7 @@ public class GlobalSecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails librarian = User.builder()
             .username("librarius")
-            .password(passwordEncoder.encode("replaceWithEnvUsing"))
+            .password(passwordEncoder.encode(System.getenv("SPRING_SECURITY_TEST_PASSWORD")))
             .roles("LIBRARIAN")
             .build();
         JdbcUserDetailsManager detailsManager = new JdbcUserDetailsManager(dataSource);
