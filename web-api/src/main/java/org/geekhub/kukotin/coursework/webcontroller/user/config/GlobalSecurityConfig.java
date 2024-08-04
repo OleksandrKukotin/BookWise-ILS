@@ -4,7 +4,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,15 +27,21 @@ public class GlobalSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/home", "/css/**").permitAll()
-                .requestMatchers("/register").anonymous()
-                .requestMatchers("/test").authenticated()
+            .authorizeHttpRequests(apiRequests -> apiRequests
                 .requestMatchers("/api/**").hasRole("LIBRARIAN")
                 .requestMatchers("/api/users/**").hasRole("ADMIN"))
+            .authorizeHttpRequests(webRequests -> webRequests
+                .requestMatchers("/home", "/css/**").permitAll()
+                .requestMatchers("/register").anonymous()
+                .requestMatchers("/").authenticated())
             .formLogin(requests -> requests
-                .loginPage("/login"))
-            .logout(LogoutConfigurer::permitAll);
+                .loginPage("/login").permitAll())
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll());
         return http.build();
     }
 
