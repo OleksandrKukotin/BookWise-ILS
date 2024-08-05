@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -14,8 +14,6 @@
     <p>Welcome, <div sec:authentication="name"></div></p>
     <p>Your one-stop solution for managing library resources with ease</p>
     <ul style="list-style-type: none">
-        <li><a href="/swagger-ui/index.html">API</a></li>
-        <li><a href="/test">Security test page</a> </li>
         <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
         <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
