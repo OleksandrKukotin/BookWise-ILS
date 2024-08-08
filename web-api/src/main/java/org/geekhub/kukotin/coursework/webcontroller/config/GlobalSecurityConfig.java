@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.webcontroller.user.config;
+package org.geekhub.kukotin.coursework.webcontroller.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;

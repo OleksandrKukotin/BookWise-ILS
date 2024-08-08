@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.webcontroller.user.config;
+package org.geekhub.kukotin.coursework.webcontroller.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

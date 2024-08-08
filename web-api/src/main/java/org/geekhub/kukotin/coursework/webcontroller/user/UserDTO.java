@@ -1,29 +1,26 @@
 package org.geekhub.kukotin.coursework.webcontroller.user;
 
-
 public class UserDTO {
 
-    private String username;
+    private String firstName;
     private String password;
     private String matchingPassword;
-    private String email;
+
+    public UserDTO(String firstName, String password, String matchingPassword) {
+        this.firstName = firstName;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
+    }
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String password, String matchingPassword, String email) {
-        this.username = username;
-        this.password = password;
-        this.matchingPassword = matchingPassword;
-        this.email = email;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getPassword() {
@@ -40,13 +37,5 @@ public class UserDTO {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
