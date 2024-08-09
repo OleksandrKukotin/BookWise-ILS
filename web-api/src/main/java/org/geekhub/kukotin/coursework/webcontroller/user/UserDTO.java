@@ -1,8 +1,15 @@
 package org.geekhub.kukotin.coursework.webcontroller.user;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class UserDTO {
 
+    @NotNull
+    @NotEmpty
     private String firstName;
+    @NotNull
+    @NotEmpty
     private String password;
     private String matchingPassword;
 
