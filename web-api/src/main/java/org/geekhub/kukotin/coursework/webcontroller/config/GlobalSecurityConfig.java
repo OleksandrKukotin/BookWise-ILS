@@ -1,14 +1,10 @@
 package org.geekhub.kukotin.coursework.webcontroller.config;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -17,11 +13,9 @@ import javax.sql.DataSource;
 @Configuration
 public class GlobalSecurityConfig {
 
-    private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
 
-    public GlobalSecurityConfig(PasswordEncoder passwordEncoder, DataSource dataSource) {
-        this.passwordEncoder = passwordEncoder;
+    public GlobalSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -45,16 +39,6 @@ public class GlobalSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        Dotenv dotenv = Dotenv.configure().filename(".env/pass.env").load();
-        UserDetails librarian = User.builder()
-                .username("librarius")
-                .password(passwordEncoder.encode(dotenv.get("SPRING_SECURITY_TEST_PASSWORD")))
-                .roles("LIBRARIAN")
-                .build();
-        JdbcUserDetailsManager detailsManager = new JdbcUserDetailsManager(dataSource);
-        if (!detailsManager.userExists(librarian.getUsername())) {
-            detailsManager.createUser(librarian);
-        }
-        return detailsManager;
+        return new JdbcUserDetailsManager(dataSource);
     }
 }
