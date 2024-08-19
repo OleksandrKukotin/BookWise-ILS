@@ -5,16 +5,22 @@ import org.geekhub.kukotin.coursework.service.user.UserRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final PasswordEncoder passwordEncoder;
     private final UserMapper mapper;
 
-    public UserRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate, UserMapper mapper) {
+    public UserRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder,
+                              UserMapper mapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.passwordEncoder = passwordEncoder;
         this.mapper = mapper;
     }
 
@@ -47,7 +53,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void update(User newUserData) {
-        // to complete in the next commit
+    public void update(String currentUsername, User newUserData) {
+        SqlParameterSource parameterSource = new MapSqlParameterSource()
+            .addValue("targetUsername", currentUsername)
+            .addValue("newName", newUserData.username())
+            .addValue("newPassword", passwordEncoder.encode(newUserData.password()))
+            .addValue("newStatus", newUserData.enabled());
+        String query = "update users set username=:newName, password=:newPassword, " +
+            "enabled=:newStatus where username=:targetUsername";
+        jdbcTemplate.update(query, parameterSource);
     }
 }
