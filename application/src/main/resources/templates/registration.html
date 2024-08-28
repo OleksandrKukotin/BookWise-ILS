@@ -10,9 +10,9 @@
 <body>
 <div class="container">
     <h1>Registration</h1>
-    <form action="/" th:object="${user}" method="POST" enctype="utf8">
+    <form action="/registration/submit" th:object="${user}" method="POST" enctype="utf8">
         <div>
-            <label for="username"></label>
+            <label for="username">Username</label>
             <input type="text" maxlength="255" id="username"/>
             <p th:each="error: ${#fields.errors('firstName')}"
                th:text="${error}">Validation error</p>
@@ -25,7 +25,7 @@
         </div>
         <div>
             <label for="passwordConfirm">Confirm password</label>
-            <input type="password" id="passwordConfirm" "/>
+            <input type="password" id="passwordConfirm"/>
         </div>
         <button type="submit">Register</button>
     </form>

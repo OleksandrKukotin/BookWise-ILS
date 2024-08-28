@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
 
 @Controller
 @RequestMapping("/registration")
@@ -30,7 +29,7 @@ public class RegistrationController { //need to be tested
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping()
+    @PostMapping("/submit")
     public void registerUser(Model model) {
         UserDTO dto = (UserDTO) model.getAttribute("user");
         if (dto != null) {

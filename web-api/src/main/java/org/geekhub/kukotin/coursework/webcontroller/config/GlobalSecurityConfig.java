@@ -27,7 +27,7 @@ public class GlobalSecurityConfig {
                         .requestMatchers("/api/users/**").hasRole("ADMIN"))
                 .authorizeHttpRequests(webRequests -> webRequests
                         .requestMatchers("/", "/home/*", "/css/**").permitAll()
-                        .requestMatchers("/register").anonymous())
+                        .requestMatchers("/registration").permitAll())
                 .formLogin(requests -> requests
                         .loginPage("/login").permitAll())
                 .logout(logoutRequest -> logoutRequest

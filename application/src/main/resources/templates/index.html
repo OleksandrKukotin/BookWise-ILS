@@ -11,11 +11,11 @@
 <body>
 <div class="container">
     <h1>BookWise ILS</h1>
+    <h2>Your one-stop solution for managing library resources with ease</h2>
     <p>Welcome, <div sec:authentication="name"></div></p>
-    <p>Your one-stop solution for managing library resources with ease</p>
     <ul style="list-style-type: none">
         <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
-        <li sec:authorize="isAnonymous()"><a href="/register">Register</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/registration">Sign Up</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
     </ul>
 </div>
