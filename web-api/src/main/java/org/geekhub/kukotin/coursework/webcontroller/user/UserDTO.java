@@ -7,14 +7,14 @@ public class UserDTO {
 
     @NotNull
     @NotEmpty
-    private String firstName;
+    private String username;
     @NotNull
     @NotEmpty
     private String password;
     private String matchingPassword;
 
-    public UserDTO(String firstName, String password, String matchingPassword) {
-        this.firstName = firstName;
+    public UserDTO(String username, String password, String matchingPassword) {
+        this.username = username;
         this.password = password;
         this.matchingPassword = matchingPassword;
     }
@@ -22,27 +22,18 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getMatchingPassword() {
         return matchingPassword;
     }
 
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
-    }
 }

@@ -45,7 +45,7 @@ allprojects {
 
         implementation("org.postgresql:postgresql:42.7.3")
         implementation("org.flywaydb:flyway-core:10.7.1")
-        runtimeOnly("org.flywaydb:flyway-database-postgresql:10.7.1")
+        runtimeOnly("org.flywaydb:flyway-database-postgresql:10.17.3")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
         testImplementation("org.springframework.security:spring-security-test:6.2.4")

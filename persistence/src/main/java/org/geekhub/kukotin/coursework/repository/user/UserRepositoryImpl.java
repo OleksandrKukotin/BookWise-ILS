@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
+    public static final String USERNAME_PARAM = "username";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper mapper;
@@ -27,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void save(User user) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
-            .addValue("usermame", user.username())
+            .addValue(USERNAME_PARAM, user.username())
             .addValue("password", user.password())
             .addValue("enabled", true);
         String query = "insert into users(username, password, enabled) values(:username, :password, :enabled)";
@@ -37,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void deleteByUsername(String username) {
         SqlParameterSource parameterSource = new MapSqlParameterSource(
-            "username", username);
+            USERNAME_PARAM, username);
         jdbcTemplate.update("delete from users where username = :username", parameterSource);
     }
 
@@ -48,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User findByUsername(String username) {
-        SqlParameterSource parameterSource = new MapSqlParameterSource("username", username);
+        SqlParameterSource parameterSource = new MapSqlParameterSource(USERNAME_PARAM, username);
         return jdbcTemplate.queryForObject("select from users where username = :username", parameterSource, mapper);
     }
 

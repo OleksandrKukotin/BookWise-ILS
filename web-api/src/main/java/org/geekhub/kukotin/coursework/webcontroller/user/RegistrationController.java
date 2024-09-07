@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,10 +31,13 @@ public class RegistrationController { //need to be tested
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/submit")
-    public void registerUser(Model model) {
-        UserDTO dto = (UserDTO) model.getAttribute("user");
+    public String registerUser(@ModelAttribute("user") UserDTO dto, Model model) {
         if (dto != null) {
             userService.add(UserConverter.fromDto(dto));
+        } else {
+            model.addAttribute("message", "Something went wrong, please try again!");
         }
+        return "registration";
     }
+
 }
