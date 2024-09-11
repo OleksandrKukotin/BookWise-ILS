@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <h1>Registration</h1>
-    <form action="/registration/submit" th:object="${user}" method="POST" enctype="text/plain">
+    <form action="/registration/submit" th:object="${user}" method="POST" enctype="application/x-www-form-urlencoded">
         <div>
             <label for="username">Username</label>
             <input type="text" maxlength="255" id="username" th:field="*{username}"/>

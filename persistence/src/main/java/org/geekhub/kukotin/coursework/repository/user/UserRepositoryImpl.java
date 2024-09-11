@@ -29,9 +29,11 @@ public class UserRepositoryImpl implements UserRepository {
     public void save(User user) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
             .addValue(USERNAME_PARAM, user.username())
-            .addValue("password", user.password())
-            .addValue("enabled", true);
-        String query = "insert into users(username, password, enabled) values(:username, :password, :enabled)";
+            .addValue("password", passwordEncoder.encode(user.password()))
+            .addValue("enabled", true)
+            .addValue("authority", "ROLE_USER");
+        String query = "insert into users(username, password, enabled) values(:username, :password, :enabled);" +
+            "insert into authorities(username, authority) values(:username, :authority);";
         jdbcTemplate.update(query, parameterSource);
     }
 

@@ -36,4 +36,15 @@ public class UserDTO {
         return matchingPassword;
     }
 
+    public void setUsername(@NotNull @NotEmpty String username) {
+        this.username = username;
+    }
+
+    public void setPassword(@NotNull @NotEmpty String password) {
+        this.password = password;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
+    }
 }
