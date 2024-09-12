@@ -21,11 +21,11 @@ public class UserService {
         return repository.findAll();
     }
 
-    public void update(String username, User newData) {
-        repository.update(username, newData);
+    public void remove(String username) {
+        repository.deleteByUsername(username);
     }
 
-    public void remove(User user) {
-        repository.deleteByUsername(user.username());
+    public void toggleUserStatus(String username) {
+        repository.toggleUser(username);
     }
 }

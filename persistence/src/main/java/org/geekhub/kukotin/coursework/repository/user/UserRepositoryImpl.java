@@ -39,9 +39,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteByUsername(String username) {
-        SqlParameterSource parameterSource = new MapSqlParameterSource(
-            USERNAME_PARAM, username);
-        jdbcTemplate.update("delete from users where username = :username", parameterSource);
+        SqlParameterSource parameterSource = new MapSqlParameterSource(USERNAME_PARAM, username);
+        String sql = "delete from authorities where username = :username;" +
+            "delete from users where username = :username;";
+        jdbcTemplate.update(sql, parameterSource);
     }
 
     @Override
@@ -52,18 +53,17 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findByUsername(String username) {
         SqlParameterSource parameterSource = new MapSqlParameterSource(USERNAME_PARAM, username);
-        return jdbcTemplate.queryForObject("select from users where username = :username", parameterSource, mapper);
+        String sql = "select * from users where username = :username;";
+        User user = jdbcTemplate.queryForObject(sql, parameterSource, mapper);
+        return user;
     }
 
     @Override
-    public void update(String currentUsername, User newUserData) {
+    public void toggleUser(String username) {
+        User user = findByUsername(username);
         SqlParameterSource parameterSource = new MapSqlParameterSource()
-            .addValue("targetUsername", currentUsername)
-            .addValue("newName", newUserData.username())
-            .addValue("newPassword", passwordEncoder.encode(newUserData.password()))
-            .addValue("newStatus", newUserData.enabled());
-        String query = "update users set username=:newName, password=:newPassword, " +
-            "enabled=:newStatus where username=:targetUsername";
-        jdbcTemplate.update(query, parameterSource);
+            .addValue(USERNAME_PARAM, username)
+            .addValue("enabled", !user.enabled());
+        jdbcTemplate.update("update users set enabled = :enabled where username = :username", parameterSource);
     }
 }

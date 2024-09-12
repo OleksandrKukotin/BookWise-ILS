@@ -23,7 +23,6 @@ public class RegistrationController { //need to be tested
     @ResponseStatus(HttpStatus.OK)
     @GetMapping()
     public String showRegistrationForm(Model model) {
-
         UserDTO userDto = new UserDTO();
         model.addAttribute("user", userDto);
         return "registration";

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>User Management</title>
+</head>
+<body>
+<div class="container">
+    <h1>User Management</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Enabled</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.enabled}"></td>
+            <td>
+                <form th:action="@{/administrator/users/delete}" method="post">
+                    <input type="hidden" th:value="${user.username}" name="username"/>
+                    <button type="submit">Delete</button>
+                </form>
+
+                <form th:action="@{/administrator/users/toggle}" method="post">
+                    <input type="hidden" th:value="${user.username}" name="username"/>
+                    <button type="submit" th:text="${user.enabled()} ? 'Disable' : 'Enable'"></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="home">Back to Home</a>
+</div>
+
+</body>
+</html>

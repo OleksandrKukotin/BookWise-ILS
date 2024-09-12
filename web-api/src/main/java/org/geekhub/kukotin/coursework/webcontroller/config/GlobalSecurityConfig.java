@@ -26,9 +26,9 @@ public class GlobalSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(apiRequests -> apiRequests
+            .authorizeHttpRequests(moderationRequests -> moderationRequests
                 .requestMatchers("/api/**").hasRole("LIBRARIAN")
-                .requestMatchers("/api/users/**").hasRole("ADMIN"))
+                .requestMatchers("/administrator/**").hasRole("ADMIN"))
             .authorizeHttpRequests(webRequests -> webRequests
                 .requestMatchers("/", "/home/*", "/css/**").permitAll()
                 .requestMatchers("/registration", "/registration/submit").permitAll())

@@ -8,5 +8,5 @@ public interface UserRepository {
     void deleteByUsername(String username);
     List<User> findAll();
     User findByUsername(String username);
-    void update(String currentUsername, User newUserData);
+    void toggleUser(String username);
 }
