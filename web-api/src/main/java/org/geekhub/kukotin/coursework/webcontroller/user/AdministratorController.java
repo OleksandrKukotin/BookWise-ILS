@@ -25,18 +25,18 @@ public class AdministratorController {
     public String listUsers(Model model) {
         List<User> users = userService.getAll();
         model.addAttribute("users", users);
-        return "userManagement"; //need to fix returning to list
+        return "userManagement";
     }
 
     @PostMapping("/users/delete")
     public String deleteUser(@RequestParam("username") String username) {
         userService.remove(username);
-        return "userManagement"; //need to fix returning to list
+        return "redirect:/administrator/users";
     }
 
     @PostMapping("/users/toggle")
     public String toggleUser(@RequestParam("username") String username) {
         userService.toggleUserStatus(username);
-        return "userManagement"; //need to fix returning to list
+        return "redirect:/administrator/users";
     }
 }
