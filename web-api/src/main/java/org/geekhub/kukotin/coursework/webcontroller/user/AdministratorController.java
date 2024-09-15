@@ -39,4 +39,17 @@ public class AdministratorController {
         userService.toggleUserStatus(username);
         return "redirect:/administrator/users";
     }
+
+    @PostMapping("/users/addRole")
+    public String addRole(@RequestParam("username") String username, @RequestParam("role") String role) {
+        userService.addRole(username, role);
+        return "redirect:/administrator/users";
+    }
+
+    @PostMapping("/users/removeRole")
+    public String removeRole(@RequestParam("username") String username, @RequestParam("role") String role) {
+        userService.removeRole(username, role);
+        return "redirect:/administrator/users";
+    }
+
 }

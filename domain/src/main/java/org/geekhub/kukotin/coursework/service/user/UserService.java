@@ -7,25 +7,42 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository) {
+        this.userRepository = userRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     public void add(User user) {
-        repository.save(user);
+        userRepository.save(user);
     }
 
     public List<User> getAll() {
-        return repository.findAll();
+        return userRepository.findAll();
     }
 
     public void remove(String username) {
-        repository.deleteByUsername(username);
+        userRepository.deleteByUsername(username);
     }
 
     public void toggleUserStatus(String username) {
-        repository.toggleUser(username);
+        userRepository.toggleUser(username);
+    }
+
+    public void addRole(String username, String role) {
+        // Check if role already exists for the user
+        if (!authorityRepository.isUserHaveAuthority(username, role)) {
+            authorityRepository.addAuthority(username, role);
+        }
+    }
+
+    public void removeRole(String username, String role) {
+        authorityRepository.removeAuthority(username, role);
+    }
+
+    public void changeRole(String username, String role) {
+        authorityRepository.changeAuthority(username, role);
     }
 }

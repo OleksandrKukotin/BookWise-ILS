@@ -12,6 +12,7 @@
         <tr>
             <th>Username</th>
             <th>Enabled</th>
+            <th>Roles</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -20,6 +21,10 @@
             <td th:text="${user.username}"></td>
             <td th:text="${user.enabled}"></td>
             <td>
+                <!-- Display the roles associated with the user -->
+                <span th:each="role : ${user.roles}" th:text="${role}">ROLE_USER</span>
+            </td>
+            <td>
                 <form th:action="@{/administrator/users/delete}" method="post">
                     <input type="hidden" th:value="${user.username}" name="username"/>
                     <button type="submit">Delete</button>
@@ -27,7 +32,21 @@
 
                 <form th:action="@{/administrator/users/toggle}" method="post">
                     <input type="hidden" th:value="${user.username}" name="username"/>
-                    <button type="submit" th:text="${user.enabled()} ? 'Disable' : 'Enable'"></button>
+                    <button type="submit" th:text="${user.enabled} ? 'Disable' : 'Enable'"></button>
+                </form>
+
+                <!-- Form to add a role to the user -->
+                <form th:action="@{/administrator/users/addRole}" method="post">
+                    <input type="hidden" th:value="${user.username}" name="username"/>
+                    <input type="text" name="role" placeholder="Add Role (e.g., ROLE_LIBRARIAN)"/>
+                    <button type="submit">Add Role</button>
+                </form>
+
+                <!-- Form to remove a role from the user -->
+                <form th:action="@{/administrator/users/removeRole}" method="post">
+                    <input type="hidden" th:value="${user.username}" name="username"/>
+                    <input type="text" name="role" placeholder="Remove Role (e.g., ROLE_USER)"/>
+                    <button type="submit">Remove Role</button>
                 </form>
             </td>
         </tr>
