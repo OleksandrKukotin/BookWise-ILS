@@ -44,6 +44,13 @@ public class AuthorityRepositoryImpl implements AuthorityRepository {
     }
 
     @Override
+    public String getAuthority(String username) {
+        MapSqlParameterSource params = new MapSqlParameterSource("username", username);
+        String sql = "SELECT authority FROM authorities WHERE username = :username";
+        return jdbcTemplate.queryForObject(sql, params, String.class);
+    }
+
+    @Override
     public boolean isUserHaveAuthority(String username, String authority) {
         MapSqlParameterSource params = new MapSqlParameterSource()
             .addValue("username", username)

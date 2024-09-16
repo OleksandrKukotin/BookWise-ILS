@@ -20,7 +20,12 @@ public class UserService {
     }
 
     public List<User> getAll() {
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        users.forEach(user -> {
+            String role = authorityRepository.getAuthority(user.getUsername());
+            user.setRole(role);
+        });
+        return users;
     }
 
     public void remove(String username) {
@@ -32,7 +37,6 @@ public class UserService {
     }
 
     public void addRole(String username, String role) {
-        // Check if role already exists for the user
         if (!authorityRepository.isUserHaveAuthority(username, role)) {
             authorityRepository.addAuthority(username, role);
         }

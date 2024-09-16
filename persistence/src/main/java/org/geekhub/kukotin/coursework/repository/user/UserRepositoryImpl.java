@@ -28,8 +28,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void save(User user) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
-            .addValue(USERNAME_PARAM, user.username())
-            .addValue("password", passwordEncoder.encode(user.password()))
+            .addValue(USERNAME_PARAM, user.getUsername())
+            .addValue("password", passwordEncoder.encode(user.getPassword()))
             .addValue("enabled", true)
             .addValue("authority", "ROLE_USER");
         String query = "insert into users(username, password, enabled) values(:username, :password, :enabled);" +
@@ -63,7 +63,7 @@ public class UserRepositoryImpl implements UserRepository {
         User user = findByUsername(username);
         SqlParameterSource parameterSource = new MapSqlParameterSource()
             .addValue(USERNAME_PARAM, username)
-            .addValue("enabled", !user.enabled());
+            .addValue("enabled", !user.isEnabled());
         jdbcTemplate.update("update users set enabled = :enabled where username = :username", parameterSource);
     }
 }

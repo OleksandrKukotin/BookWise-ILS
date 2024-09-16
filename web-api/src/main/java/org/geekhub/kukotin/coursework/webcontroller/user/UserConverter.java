@@ -8,6 +8,6 @@ public class UserConverter {
     }
 
     public static User fromDto(UserDTO dto) {
-        return new User(dto.getUsername(), dto.getPassword(), true);
+        return new User(dto.getUsername(), "", dto.getPassword(), true);
     }
 }
