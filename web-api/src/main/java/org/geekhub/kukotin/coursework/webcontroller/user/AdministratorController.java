@@ -24,7 +24,9 @@ public class AdministratorController {
     @GetMapping("/users")
     public String listUsers(Model model) {
         List<User> users = userService.getAll();
+        List<String> roles = List.of("ROLE_USER", "ROLE_ADMIN", "ROLE_LIBRARIAN");
         model.addAttribute("users", users);
+        model.addAttribute("roles", roles);
         return "userManagement";
     }
 

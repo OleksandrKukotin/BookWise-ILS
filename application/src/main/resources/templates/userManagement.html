@@ -35,24 +35,26 @@
                     <button type="submit" th:text="${user.isEnabled()} ? 'Disable' : 'Enable'"></button>
                 </form>
 
-                <!-- Form to add a role to the user -->
                 <form th:action="@{/administrator/users/addRole}" method="post">
-                    <input type="hidden" th:value="${user.getUsername()}" name="username"/>
-                    <input type="text" name="role" placeholder="Add Role (e.g., ROLE_LIBRARIAN)"/>
+                    <input type="hidden" th:value="${user.username}" name="username"/>
+                    <select name="role">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                    </select>
                     <button type="submit">Add Role</button>
                 </form>
 
-                <!-- Form to remove a role from the user -->
                 <form th:action="@{/administrator/users/removeRole}" method="post">
-                    <input type="hidden" th:value="${user.getUsername()}" name="username"/>
-                    <input type="text" name="role" placeholder="Remove Role (e.g., ROLE_USER)"/>
+                    <input type="hidden" th:value="${user.username}" name="username"/>
+                    <select name="role">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                    </select>
                     <button type="submit">Remove Role</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="home">Back to Home</a>
+    <a href="/home">Back to Home</a>
 </div>
 
 </body>
