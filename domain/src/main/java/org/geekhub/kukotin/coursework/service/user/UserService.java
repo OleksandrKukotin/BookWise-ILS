@@ -17,6 +17,8 @@ public class UserService {
 
     public void add(User user) {
         userRepository.save(user);
+        user.setRole("ROLE_USER");
+        authorityRepository.addAuthority(user.getUsername(), user.getRole());
     }
 
     public List<User> getAll() {
@@ -29,6 +31,7 @@ public class UserService {
     }
 
     public void remove(String username) {
+        authorityRepository.removeAuthority(username);
         userRepository.deleteByUsername(username);
     }
 
@@ -37,16 +40,12 @@ public class UserService {
     }
 
     public void addRole(String username, String role) {
-        if (!authorityRepository.isUserHaveAuthority(username, role)) {
-            authorityRepository.addAuthority(username, role);
+        if (authorityRepository.isUserAnonymous(username)) {
+            changeRole(username, role);
         }
     }
 
-    public void removeRole(String username, String role) {
-        authorityRepository.removeAuthority(username, role);
-    }
-
-    public void changeRole(String username, String role) {
-        authorityRepository.changeAuthority(username, role);
+    public void changeRole(String username, String newRole) {
+        authorityRepository.changeAuthority(username, newRole);
     }
 }

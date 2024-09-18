@@ -26,11 +26,10 @@ public class AuthorityRepositoryImpl implements AuthorityRepository {
     }
 
     @Override
-    public void removeAuthority(String username, String authority) {
+    public void removeAuthority(String username) {
         MapSqlParameterSource params = new MapSqlParameterSource()
-            .addValue("username", username)
-            .addValue("authority", authority);
-        String sql = "DELETE FROM authorities WHERE username = :username AND authority = :authority";
+            .addValue("username", username);
+        String sql = "DELETE FROM authorities WHERE username = :username";
         jdbcTemplate.update(sql, params);
     }
 
@@ -51,10 +50,10 @@ public class AuthorityRepositoryImpl implements AuthorityRepository {
     }
 
     @Override
-    public boolean isUserHaveAuthority(String username, String authority) {
+    public boolean isUserAnonymous(String username) {
         MapSqlParameterSource params = new MapSqlParameterSource()
             .addValue("username", username)
-            .addValue("authority", authority);
+            .addValue("authority", "ROLE_ANONYMOUS");
         String sql = "SELECT authority FROM authorities WHERE username = :username AND authority = :authority";
         Optional<String> actualAuthority = Optional.ofNullable(jdbcTemplate.queryForObject(sql, params, String.class));
         return actualAuthority.isPresent();

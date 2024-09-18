@@ -49,8 +49,8 @@ public class AdministratorController {
     }
 
     @PostMapping("/users/removeRole")
-    public String removeRole(@RequestParam("username") String username, @RequestParam("role") String role) {
-        userService.removeRole(username, role);
+    public String removeRole(@RequestParam("username") String username) {
+        userService.changeRole(username, "ROLE_ANONYMOUS");
         return "redirect:/administrator/users";
     }
 

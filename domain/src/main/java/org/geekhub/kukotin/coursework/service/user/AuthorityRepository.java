@@ -3,8 +3,8 @@ package org.geekhub.kukotin.coursework.service.user;
 public interface AuthorityRepository {
 
     void addAuthority(String username, String authority);
-    void removeAuthority(String username, String authority);
+    void removeAuthority(String username);
     void changeAuthority(String username, String newAuthority);
-    boolean isUserHaveAuthority(String username, String authority);
+    boolean isUserAnonymous(String username);
     String getAuthority(String username);
 }
