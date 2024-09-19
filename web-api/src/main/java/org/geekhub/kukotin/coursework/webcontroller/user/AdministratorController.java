@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/administrator")
 public class AdministratorController {
 
+    public static final String USER_MANAGEMENT_REDIRECT = "redirect:/administrator/users";
     private final UserService userService;
 
     public AdministratorController(UserService userService) {
@@ -33,25 +34,25 @@ public class AdministratorController {
     @PostMapping("/users/delete")
     public String deleteUser(@RequestParam("username") String username) {
         userService.remove(username);
-        return "redirect:/administrator/users";
+        return USER_MANAGEMENT_REDIRECT;
     }
 
     @PostMapping("/users/toggle")
     public String toggleUser(@RequestParam("username") String username) {
         userService.toggleUserStatus(username);
-        return "redirect:/administrator/users";
+        return USER_MANAGEMENT_REDIRECT;
     }
 
-    @PostMapping("/users/addRole")
+    @PostMapping("/users/changeRole")
     public String addRole(@RequestParam("username") String username, @RequestParam("role") String role) {
-        userService.addRole(username, role);
-        return "redirect:/administrator/users";
+        userService.changeRole(username, role);
+        return USER_MANAGEMENT_REDIRECT;
     }
 
-    @PostMapping("/users/removeRole")
+    @PostMapping("/users/makeAnonymous")
     public String removeRole(@RequestParam("username") String username) {
         userService.changeRole(username, "ROLE_ANONYMOUS");
-        return "redirect:/administrator/users";
+        return USER_MANAGEMENT_REDIRECT;
     }
 
 }

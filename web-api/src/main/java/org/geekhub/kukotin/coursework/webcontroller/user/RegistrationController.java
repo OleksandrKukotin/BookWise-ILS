@@ -36,7 +36,7 @@ public class RegistrationController { //need to be tested
         } else {
             model.addAttribute("message", "Something went wrong, please try again!");
         }
-        return "registration";
+        return "redirect:/registration";
     }
 
 }

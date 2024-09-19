@@ -38,15 +38,15 @@
                     <button type="submit" th:text="${user.isEnabled()} ? 'Disable' : 'Enable'"></button>
                 </form>
 
-                <form th:action="@{/administrator/users/addRole}" method="post">
+                <form th:action="@{/administrator/users/changeRole}" method="post">
                     <input type="hidden" th:value="${user.username}" name="username"/>
                     <select name="role">
                         <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
                     </select>
-                    <button type="submit">Add Role</button>
+                    <button type="submit">Change Role</button>
                 </form>
 
-                <form th:action="@{/administrator/users/removeRole}" method="post">
+                <form th:action="@{/administrator/users/makeAnonymous}" method="post">
                     <input type="hidden" th:value="${user.username}" name="username"/>
                     <button type="submit">Make anonymous</button>
                 </form>

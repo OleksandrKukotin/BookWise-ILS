@@ -39,12 +39,6 @@ public class UserService {
         userRepository.toggleUser(username);
     }
 
-    public void addRole(String username, String role) {
-        if (authorityRepository.isUserAnonymous(username)) {
-            changeRole(username, role);
-        }
-    }
-
     public void changeRole(String username, String newRole) {
         authorityRepository.changeAuthority(username, newRole);
     }
