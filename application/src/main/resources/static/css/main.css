@@ -6,42 +6,71 @@ body {
 }
 
 .container {
-    max-width: 400px;
+    max-width: 600px; /* Wider container */
     margin: 50px auto;
     background: #fff;
-    padding: 20px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px; /* Increased padding for cleaner look */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    border-radius: 8px; /* Rounded corners */
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+h1 {
+    text-align: center;
+    color: #333;
 }
 
-label {
-    margin-top: 10px;
+table {
+    width: 100%; /* Make table take full width */
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; /* Include padding in the element's total width and height */
+th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
 }
 
 button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #5cb85c;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #218838;
+}
+
+select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    table, th, td {
+        font-size: 14px; /* Smaller text for smaller screens */
+    }
 }

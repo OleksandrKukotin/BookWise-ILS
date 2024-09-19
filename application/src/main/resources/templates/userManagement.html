@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 <div class="container">
@@ -45,10 +48,7 @@
 
                 <form th:action="@{/administrator/users/removeRole}" method="post">
                     <input type="hidden" th:value="${user.username}" name="username"/>
-                    <select name="role">
-                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
-                    </select>
-                    <button type="submit">Remove Role</button>
+                    <button type="submit">Make anonymous</button>
                 </form>
             </td>
         </tr>
