@@ -54,8 +54,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User findByUsername(String username) {
         SqlParameterSource parameterSource = new MapSqlParameterSource(USERNAME_PARAM, username);
         String sql = "select * from users where username = :username;";
-        User user = jdbcTemplate.queryForObject(sql, parameterSource, mapper);
-        return user;
+        return jdbcTemplate.queryForObject(sql, parameterSource, mapper);
     }
 
     @Override

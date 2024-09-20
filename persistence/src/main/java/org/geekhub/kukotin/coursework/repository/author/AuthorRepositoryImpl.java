@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public class AuthorRepositoryImpl implements AuthorRepository {
 
+    public static final String AUTHOR_ID_PARAM = "authorId";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final AuthorMapper mapper;
 
@@ -32,7 +33,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public Author findAuthorById(int authorId) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
-            .addValue("authorId", authorId);
+            .addValue(AUTHOR_ID_PARAM, authorId);
         String query = "select * from authors where author_id = :authorId";
         return jdbcTemplate.queryForObject(query, parameterSource, mapper);
     }
@@ -49,7 +50,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public void updateAuthor(Author author) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
-            .addValue("authorId", author.getAuthorId())
+            .addValue(AUTHOR_ID_PARAM, author.getAuthorId())
             .addValue("authorName", author.getAuthorName())
             .addValue("authorSurname", author.getAuthorSurname());
         String query = """
@@ -62,7 +63,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     @Override
     public void deleteAuthor(Author author) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
-            .addValue("authorId", author.getAuthorId());
+            .addValue(AUTHOR_ID_PARAM, author.getAuthorId());
         String query = "delete from authors where author_id  = :authorId";
         jdbcTemplate.update(query, parameterSource);
     }
