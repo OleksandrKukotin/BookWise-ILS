@@ -17,6 +17,10 @@
             <input type="text" maxlength="255" id="username" th:field="*{username}"/>
         </div>
         <div>
+            <label for="email">Username</label>
+            <input type="email" maxlength="255" id="email" th:field="*{email}"/>
+        </div>
+        <div>
             <label for="password">Password</label>
             <input type="password" id="password" th:field="*{password}"/>
             <p th:each="error : ${#fields.errors('password')}"

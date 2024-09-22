@@ -11,11 +11,13 @@ public class UserDTO {
     @NotNull
     @NotEmpty
     private String password;
+    private String email;
     private String matchingPassword;
 
-    public UserDTO(String username, String password, String matchingPassword) {
+    public UserDTO(String username, String password, String email, String matchingPassword) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.matchingPassword = matchingPassword;
     }
 
@@ -31,6 +33,9 @@ public class UserDTO {
         return password;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
     public String getMatchingPassword() {
         return matchingPassword;
@@ -42,6 +47,10 @@ public class UserDTO {
 
     public void setPassword(@NotNull @NotEmpty String password) {
         this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setMatchingPassword(String matchingPassword) {
