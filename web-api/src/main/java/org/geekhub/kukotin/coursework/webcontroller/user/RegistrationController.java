@@ -38,5 +38,4 @@ public class RegistrationController { //need to be tested
         }
         return "redirect:/registration";
     }
-
 }
