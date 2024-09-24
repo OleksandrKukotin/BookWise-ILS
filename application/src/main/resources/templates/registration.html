@@ -22,13 +22,15 @@
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" th:field="*{password}"/>
+            <input type="password" id="password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required
+            th:field="*{password}">
             <p th:each="error : ${#fields.errors('password')}"
                th:text="${error}">Validation error</p>
         </div>
         <div>
             <label for="passwordConfirm">Confirm password</label>
-            <input type="password" id="passwordConfirm" th:field="*{matchingPassword}"/>
+            <input type="password" id="passwordConfirm" th:field="*{matchingPassword}" required/>
         </div>
         <button type="submit">Register</button>
     </form>
