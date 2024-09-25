@@ -12,10 +12,10 @@ A simple integrated library system for dooks/documents management in institution
 ### **Functionality:**
 - Authentication
     - Users should be able to register with the application:
-        - Users should input email, username, password, and password confirmation.
-        - The email/username must be unique, and not contain any special symbols (like `’=-\_/?|\][,<.>”&^%$#№!).
+        - Users should input email, username, password, and password confirmation. ✅
+        - The email/username must be unique, and not contain any special symbols (like `’=-\_/?|\][,<.>”&^%$#№!). ✅
         - Passwords should be securely stored using appropriate encryption techniques. ✅
-        - If email and username are not used, register a new user and automatically log in.
+        - If email and username are not used, register a new user and automatically log in. ✅
     - Users should be able to log in: ✅
         - User can use their username/email and password to login to the system ✅
     - Users should be able to reset their passwords if forgotten.

@@ -14,7 +14,8 @@
     <form action="/registration/submit" th:object="${user}" method="POST" enctype="application/x-www-form-urlencoded">
         <div>
             <label for="username">Username</label>
-            <input type="text" maxlength="255" id="username" th:field="*{username}"/>
+            <input type="text" maxlength="255" id="username" th:field="*{username}" required pattern="[a-zA-Z0-9.]+"
+            title="Only letters and numbers are allowed"/>
         </div>
         <div>
             <label for="email">Email</label>
@@ -23,8 +24,8 @@
         <div>
             <label for="password">Password</label>
             <input type="password" id="password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required
-            th:field="*{password}">
+                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                   required th:field="*{password}">
             <p th:each="error : ${#fields.errors('password')}"
                th:text="${error}">Validation error</p>
         </div>

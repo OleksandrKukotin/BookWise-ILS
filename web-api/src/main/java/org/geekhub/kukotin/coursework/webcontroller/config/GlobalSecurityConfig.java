@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 import javax.sql.DataSource;
 
@@ -24,7 +26,8 @@ public class GlobalSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, RememberMeServices rememberMeServices)
+        throws Exception {
         http
             .authorizeHttpRequests(moderationRequests -> moderationRequests
                 .requestMatchers("/api/**").hasRole("LIBRARIAN")
@@ -36,7 +39,8 @@ public class GlobalSecurityConfig {
                 .loginPage("/login").permitAll())
             .logout(logoutRequest -> logoutRequest
                 .logoutUrl("/logout").permitAll()
-                .logoutSuccessUrl("/home"));
+                .logoutSuccessUrl("/home"))
+            .rememberMe(remember -> remember.rememberMeServices(rememberMeServices));
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
@@ -54,5 +58,14 @@ public class GlobalSecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder);
 
         return new ProviderManager(authenticationProvider);
+    }
+
+    @Bean
+    RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
+        TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm =
+            TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
+        TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices("myKey", userDetailsService, encodingAlgorithm);
+        rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);
+        return rememberMe;
     }
 }
