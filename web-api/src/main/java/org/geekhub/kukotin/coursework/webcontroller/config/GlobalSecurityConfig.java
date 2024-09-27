@@ -25,7 +25,8 @@ public class GlobalSecurityConfig {
                 .requestMatchers("/administrator/**").hasRole("ADMIN"))
             .authorizeHttpRequests(webRequests -> webRequests
                 .requestMatchers("/", "/home/*", "/css/**").permitAll()
-                .requestMatchers("/registration", "/registration/submit").permitAll())
+                .requestMatchers("/registration", "/registration/submit").permitAll()
+                .requestMatchers("/test").hasRole(ROLE_LIBRARIAN))
             .formLogin(requests -> requests
                 .loginPage("/login").permitAll())
             .logout(logoutRequest -> logoutRequest
