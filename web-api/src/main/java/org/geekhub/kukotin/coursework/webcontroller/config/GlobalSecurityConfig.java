@@ -8,6 +8,7 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.RememberMeServices;
 
@@ -25,14 +26,15 @@ public class GlobalSecurityConfig {
                 .requestMatchers("/administrator/**").hasRole("ADMIN"))
             .authorizeHttpRequests(webRequests -> webRequests
                 .requestMatchers("/", "/home/*", "/css/**").permitAll()
-                .requestMatchers("/registration", "/registration/submit").permitAll()
-                .requestMatchers("/test").hasRole(ROLE_LIBRARIAN))
+                .requestMatchers("/registration", "/registration/submit").permitAll())
             .formLogin(requests -> requests
                 .loginPage("/login").permitAll())
             .logout(logoutRequest -> logoutRequest
                 .logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/home"))
             .rememberMe(remember -> remember.rememberMeServices(rememberMeServices));
+        http.sessionManagement(httpSecuritySessionManagementConfigurer ->
+            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
