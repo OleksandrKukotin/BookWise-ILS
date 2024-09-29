@@ -1,5 +1,6 @@
 package org.geekhub.kukotin.coursework.webcontroller.user;
 
+import org.geekhub.kukotin.coursework.service.email.EmailService;
 import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ public class AdministratorController {
 
     public static final String USER_MANAGEMENT_REDIRECT = "redirect:/administrator/users";
     private final UserService userService;
+    private final EmailService emailService;
 
-    public AdministratorController(UserService userService) {
+    public AdministratorController(UserService userService, EmailService emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/users")
@@ -40,6 +43,8 @@ public class AdministratorController {
     @PostMapping("/users/toggle")
     public String toggleUser(@RequestParam("username") String username) {
         userService.toggleUserStatus(username);
+        emailService.sendSimpleMessage("example@gmail.com", "notification",
+            username + " account was disabled, lol.");
         return USER_MANAGEMENT_REDIRECT;
     }
 

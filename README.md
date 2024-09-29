@@ -30,7 +30,7 @@ A simple integrated library system for dooks/documents management in institution
 - Authorization
     - Define multiple user roles with different levels of access and permissions: ✅
         - Implement role-based access control (RBAC) for securing application resources. ✅
-        - Support Role hierarchy (ex. User < Admin < Super Admin) ✅
+        - Support Role hierarchy (ex. User < Admin < Super Admin)  ✅
     - Create an admin interface:
         - Restrict access to the admin panel to users with appropriate roles. ✅
         - Implement features such as user management, role assignment, resource management, etc. ✅

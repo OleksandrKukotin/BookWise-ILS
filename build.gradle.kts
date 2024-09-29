@@ -1,7 +1,7 @@
 import name.remal.gradle_plugins.sonarlint.SonarLint
 
 plugins {
-    id ("name.remal.sonarlint") version "3.3.11"
+    id("name.remal.sonarlint") version "3.3.11"
     java
     idea
     checkstyle
@@ -31,23 +31,25 @@ allprojects {
         mavenCentral()
     }
 
+    val springVersion = "3.3.4"
+
     dependencies {
         implementation("com.google.code.findbugs:jsr305:3.0.2")
-        implementation("io.github.cdimascio:java-dotenv:5.2.2")
 
-        implementation("org.springframework.boot:spring-boot-starter-web:3.3.2")
-        implementation("org.springframework.boot:spring-boot-starter-jdbc:3.3.2")
-        implementation("org.springframework.boot:spring-boot-starter-security:3.3.2")
+        implementation("org.springframework.boot:spring-boot-starter-web:$springVersion")
+        implementation("org.springframework.boot:spring-boot-starter-jdbc:$springVersion")
+        implementation("org.springframework.boot:spring-boot-starter-security:$springVersion")
+        implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springVersion")
+        implementation("org.springframework.boot:spring-boot-starter-actuator:$springVersion")
+        implementation("org.springframework.boot:spring-boot-starter-mail:$springVersion")
         implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE")
-        implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.3.2")
-        implementation("org.springframework.boot:spring-boot-starter-actuator:3.3.2")
         implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 
         implementation("org.postgresql:postgresql:42.7.3")
         implementation("org.flywaydb:flyway-core:10.7.1")
         runtimeOnly("org.flywaydb:flyway-database-postgresql:10.17.3")
 
-        testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
+        testImplementation("org.springframework.boot:spring-boot-starter-test:$springVersion")
         testImplementation("org.springframework.security:spring-security-test:6.2.4")
     }
 
@@ -63,20 +65,20 @@ allprojects {
         }
         rules {
             disable(
-                    "java:S1192", // Allow string literals to be duplicated
-                    "java:S1197", // Allow constants to be defined in interfaces
-                    "java:S1118", // Allow utility classes to have a private constructor
-                    "java:S106", // Allow system out and err to be used
-                    "java:S107", // Allow constructors with more than 7 parameters
-                    "java:S3776", // Allow methods with more than 15 lines
-                    "java:S1135", // Allow TODO comments
-                    "java:S2094", // Allow empty classes for homeworks
-                    "java:S1452", // Allow generic wildcards types in return type
-                    "java:S125", // Allow commented sections of code
-                    "java:6218", // Allow not overridden Equals() in records
-                    "java:S3011", // Allow Reflection using for setting field's values
-                    "java:S100", // Allow method naming with underscore for test methods
-                    "java:S1192" // Allow literals dublication for repositories code
+                "java:S1192", // Allow string literals to be duplicated
+                "java:S1197", // Allow constants to be defined in interfaces
+                "java:S1118", // Allow utility classes to have a private constructor
+                "java:S106", // Allow system out and err to be used
+                "java:S107", // Allow constructors with more than 7 parameters
+                "java:S3776", // Allow methods with more than 15 lines
+                "java:S1135", // Allow TODO comments
+                "java:S2094", // Allow empty classes for homeworks
+                "java:S1452", // Allow generic wildcards types in return type
+                "java:S125", // Allow commented sections of code
+                "java:6218", // Allow not overridden Equals() in records
+                "java:S3011", // Allow Reflection using for setting field's values
+                "java:S100", // Allow method naming with underscore for test methods
+                "java:S1192" // Allow literals dublication for repositories code
             )
         }
     }
