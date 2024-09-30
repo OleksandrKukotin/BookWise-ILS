@@ -10,16 +10,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.RememberMeServices;
 
 @Configuration
 public class GlobalSecurityConfig {
 
     public static final String ROLE_LIBRARIAN = "LIBRARIAN";
+    public static final int REMEMBER_ME_TOKEN_VALIDITY_SECONDS = 3600;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, RememberMeServices rememberMeServices)
-        throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(moderationRequests -> moderationRequests
                 .requestMatchers("/api/**").hasRole(ROLE_LIBRARIAN)
@@ -32,7 +31,8 @@ public class GlobalSecurityConfig {
             .logout(logoutRequest -> logoutRequest
                 .logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/home"))
-            .rememberMe(remember -> remember.rememberMeServices(rememberMeServices));
+            .rememberMe(rememberMe -> rememberMe.key("example")
+                .tokenValiditySeconds(REMEMBER_ME_TOKEN_VALIDITY_SECONDS));
         http.sessionManagement(httpSecuritySessionManagementConfigurer ->
             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
         http.csrf(AbstractHttpConfigurer::disable);

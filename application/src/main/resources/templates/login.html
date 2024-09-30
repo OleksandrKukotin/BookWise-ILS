@@ -16,9 +16,23 @@
         You have been logged out.
     </div>
     <form th:action="@{/login}" method="post">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password : <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
+        <table>
+            <tr>
+                <td>User:</td>
+                <td><input type='text' name='username' value=''></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type='password' name='password'/></td>
+            </tr>
+            <tr>
+                <td>Remember Me:</td>
+                <td><input type="checkbox" name="remember-me"/></td>
+            </tr>
+            <tr>
+                <td><input name="submit" type="submit" value="Login"/></td>
+            </tr>
+        </table>
         <div>
             <a href="/registration">Sign Up</a>
         </div>
