@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
     public EmailService(JavaMailSender emailSender) {
         this.emailSender = emailSender;
@@ -15,7 +15,7 @@ public class EmailService {
 
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@bookwise.com"); //why it doesn't work
+        message.setFrom("noreply@bookwise.com"); // This won't work without a dedicated SMTP server
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
