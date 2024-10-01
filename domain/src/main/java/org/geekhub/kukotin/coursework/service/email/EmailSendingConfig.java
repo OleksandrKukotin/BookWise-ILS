@@ -11,9 +11,9 @@ import java.util.Properties;
 @Configuration
 public class EmailSendingConfig {
 
-    @Value("${email.password}")
+    @Value("${EMAIL_PASSWORD}")
     private String mailSenderPassword;
-    @Value("${email.sender}")
+    @Value("${EMAIL_SENDER}")
     private String mailSenderEmail;
 
     @Bean

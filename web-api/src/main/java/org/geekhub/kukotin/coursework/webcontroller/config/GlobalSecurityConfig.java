@@ -1,5 +1,6 @@
 package org.geekhub.kukotin.coursework.webcontroller.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -14,8 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class GlobalSecurityConfig {
 
-    public static final String ROLE_LIBRARIAN = "LIBRARIAN";
-    public static final int REMEMBER_ME_TOKEN_VALIDITY_SECONDS = 3600;
+    private static final String ROLE_LIBRARIAN = "LIBRARIAN";
+    private static final int REMEMBER_ME_TOKEN_VALIDITY_SECONDS = 3600;
+    @Value("${REMEMBER_ME_KEY}")
+    private String rememberMeKey;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,7 +34,7 @@ public class GlobalSecurityConfig {
             .logout(logoutRequest -> logoutRequest
                 .logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/home"))
-            .rememberMe(rememberMe -> rememberMe.key("example")
+            .rememberMe(rememberMe -> rememberMe.key(rememberMeKey)
                 .tokenValiditySeconds(REMEMBER_ME_TOKEN_VALIDITY_SECONDS));
         http.sessionManagement(httpSecuritySessionManagementConfigurer ->
             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
