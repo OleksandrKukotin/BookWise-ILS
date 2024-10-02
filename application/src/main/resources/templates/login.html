@@ -9,33 +9,33 @@
 </head>
 <body>
 <div class="container">
+    <h1>Login</h1>
     <div th:if="${param.error}">
         Invalid username or password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
     </div>
     <form th:action="@{/login}" method="post">
         <table>
             <tr>
-                <td>User:</td>
-                <td><input type='text' name='username' value=''></td>
+                <td><label for="username">Username:</label></td>
+                <td><input type='text' id='username' value=''></td>
             </tr>
             <tr>
-                <td>Password:</td>
-                <td><input type='password' name='password'/></td>
+                <td><label for="password">Password:</label></td>
+                <td><input type='password' id='password'/></td>
+                <td><a href="/passwordReset">Forgot Password?</a></td>
             </tr>
             <tr>
-                <td>Remember Me:</td>
-                <td><input type="checkbox" name="remember-me"/></td>
+                <td><label for="remember-me">Remember Me:</label></td>
+                <td><input type="checkbox" id="remember-me"/></td>
             </tr>
             <tr>
                 <td><input name="submit" type="submit" value="Login"/></td>
+                <td><a href="/registration">Sign Up</a></td>
+            </tr>
+            <tr>
+                <td><a href="/home">Go home</a></td>
             </tr>
         </table>
-        <div>
-            <a href="/registration">Sign Up</a>
-        </div>
     </form>
 </div>
 </body>

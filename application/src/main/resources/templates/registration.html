@@ -12,30 +12,54 @@
 <div class="container">
     <h1>Registration</h1>
     <form action="/registration/submit" th:object="${user}" method="POST" enctype="application/x-www-form-urlencoded">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" maxlength="255" id="username" th:field="*{username}" required pattern="[a-zA-Z0-9.]+"
-            title="Only letters and numbers are allowed"/>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" maxlength="255" id="email" th:field="*{email}"/>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                   required th:field="*{password}">
-            <p th:each="error : ${#fields.errors('password')}"
-               th:text="${error}">Validation error</p>
-        </div>
-        <div>
-            <label for="passwordConfirm">Confirm password</label>
-            <input type="password" id="passwordConfirm" th:field="*{matchingPassword}" required/>
-        </div>
-        <button type="submit">Register</button>
+        <table>
+            <tr>
+                <td>
+                    <label for="username">Username:</label>
+                </td>
+                <td>
+                    <input type="text" maxlength="255" id="username" th:field="*{username}" required
+                           pattern="[a-zA-Z0-9.]+"
+                           title="Only letters and numbers are allowed"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">Email:</label>
+                </td>
+                <td>
+                    <input type="email" maxlength="255" id="email" th:field="*{email}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="password">Password:</label>
+                </td>
+                <td>
+                    <input type="password" id="password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                           required th:field="*{password}">
+                    <p th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}">Validation error</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="matching-password">Confirm password:</label>
+                </td>
+                <td>
+                    <input type="password" id="matching-password" th:field="*{matchingPassword}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td><input name="submit" type="submit" value="Register"/></td>
+                <td><a href="/login">Login</a></td>
+            </tr>
+            <tr>
+                <td><a href="/home">Go home</a></td>
+            </tr>
+        </table>
     </form>
-    <a href="/login">Login</a>
 </div>
 </body>
 </html>
