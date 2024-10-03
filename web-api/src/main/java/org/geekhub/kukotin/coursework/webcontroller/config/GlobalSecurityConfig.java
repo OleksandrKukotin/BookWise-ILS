@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class GlobalSecurityConfig {
 
     private static final String ROLE_LIBRARIAN = "LIBRARIAN";
-    private static final int REMEMBER_ME_TOKEN_VALIDITY_SECONDS = 3600;
+    private static final int REMEMBER_ME_TOKEN_VALIDITY_SECONDS = 7 * 24 * 60 * 60; // 7 days
     @Value("${REMEMBER_ME_KEY}")
     private String rememberMeKey;
 
@@ -34,6 +34,7 @@ public class GlobalSecurityConfig {
                 .loginPage("/login").permitAll())
             .logout(logoutRequest -> logoutRequest
                 .logoutUrl("/logout").permitAll()
+                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/home"))
             .rememberMe(rememberMe -> rememberMe.key(rememberMeKey)
                 .tokenValiditySeconds(REMEMBER_ME_TOKEN_VALIDITY_SECONDS));

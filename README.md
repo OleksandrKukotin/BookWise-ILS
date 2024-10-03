@@ -20,10 +20,10 @@ A simple integrated library system for dooks/documents management in institution
         - User can use their username/email and password to login to the system ✅
     - Users should be able to reset their passwords if forgotten.
         - The recovery code/link should be sent to the user's email
-    - Support Remember-me feature:
+    - Support Remember-me feature: ✅
         - Implement remember-me functionality for persistent user sessions ✅
         - Allow users to enable or disable the remember-me functionality during login ✅
-        - Remember-me token increases inactivity time. When the user logs in with the checked remember-me flag - the logout will be done only in 7 days of inactivity.
+        - Remember-me token increases inactivity time. When the user logs in with the checked remember-me flag - the logout will be done only in 7 days of inactivity. ✅
     - Support Log-out feature: ✅
         - When user authenticated, it should be able to log-out ✅
         - Users should be automatically logged out after 2 hours of inactivity on the application. ✅
