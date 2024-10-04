@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.author;
 
-import org.geekhub.kukotin.coursework.service.author.AuthorService;
+import org.geekhub.kukotin.coursework.service.entities.author.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

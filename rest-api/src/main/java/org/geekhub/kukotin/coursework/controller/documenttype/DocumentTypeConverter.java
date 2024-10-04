@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.documenttype;
 
-import org.geekhub.kukotin.coursework.service.documenttype.DocumentType;
+import org.geekhub.kukotin.coursework.service.entities.documenttype.DocumentType;
 
 import java.util.List;
 

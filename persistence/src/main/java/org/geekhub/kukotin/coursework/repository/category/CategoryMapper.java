@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.repository.category;
 
-import org.geekhub.kukotin.coursework.service.category.Category;
+import org.geekhub.kukotin.coursework.service.entities.category.Category;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

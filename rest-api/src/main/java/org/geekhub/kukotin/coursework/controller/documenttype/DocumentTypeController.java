@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.documenttype;
 
-import org.geekhub.kukotin.coursework.service.documenttype.DocumentTypeService;
+import org.geekhub.kukotin.coursework.service.entities.documenttype.DocumentTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

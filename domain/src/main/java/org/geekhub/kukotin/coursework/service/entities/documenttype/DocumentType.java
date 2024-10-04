@@ -1,9 +1,9 @@
-package org.geekhub.kukotin.coursework.service.documenttype;
+package org.geekhub.kukotin.coursework.service.entities.documenttype;
 
 public class DocumentType {
 
-    private int typeId;
-    private String typeName;
+    private final int typeId;
+    private final String typeName;
 
     public DocumentType(int typeId, String typeName) {
         this.typeId = typeId;

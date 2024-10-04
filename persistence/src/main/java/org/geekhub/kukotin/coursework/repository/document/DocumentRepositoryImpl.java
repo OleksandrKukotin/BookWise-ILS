@@ -1,7 +1,7 @@
 package org.geekhub.kukotin.coursework.repository.document;
 
-import org.geekhub.kukotin.coursework.service.document.Document;
-import org.geekhub.kukotin.coursework.service.document.DocumentRepository;
+import org.geekhub.kukotin.coursework.service.entities.document.Document;
+import org.geekhub.kukotin.coursework.service.entities.document.DocumentRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;

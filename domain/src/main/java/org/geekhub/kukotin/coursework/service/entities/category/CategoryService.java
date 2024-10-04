@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.service.category;
+package org.geekhub.kukotin.coursework.service.entities.category;
 
 import org.springframework.stereotype.Service;
 

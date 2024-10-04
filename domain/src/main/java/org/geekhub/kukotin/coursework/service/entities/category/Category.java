@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.service.category;
+package org.geekhub.kukotin.coursework.service.entities.category;
 
 public record Category(
     int categoryId,

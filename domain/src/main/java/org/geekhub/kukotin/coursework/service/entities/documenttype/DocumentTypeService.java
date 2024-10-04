@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.service.documenttype;
+package org.geekhub.kukotin.coursework.service.entities.documenttype;
 
 import org.springframework.stereotype.Service;
 

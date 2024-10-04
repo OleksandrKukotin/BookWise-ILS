@@ -2,6 +2,7 @@ package org.geekhub.kukotin.coursework.webcontroller.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,7 +13,9 @@ public class PasswordResetController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public String passwordReset() {
+    public String passwordReset(Model model) {
+        UserDTO userDTO = new UserDTO();
+        model.addAttribute("user", userDTO);
         return "forgotPasswordForm";
     }
 }

@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.author;
 
-import org.geekhub.kukotin.coursework.service.author.Author;
+import org.geekhub.kukotin.coursework.service.entities.author.Author;
 
 import java.util.List;
 

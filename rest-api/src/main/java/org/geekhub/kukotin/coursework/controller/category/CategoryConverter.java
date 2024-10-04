@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.category;
 
-import org.geekhub.kukotin.coursework.service.category.Category;
+import org.geekhub.kukotin.coursework.service.entities.category.Category;
 
 import java.util.List;
 

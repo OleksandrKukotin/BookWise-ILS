@@ -1,10 +1,10 @@
-package org.geekhub.kukotin.coursework.service.author;
+package org.geekhub.kukotin.coursework.service.entities.author;
 
 public class Author {
 
-    private int authorId;
-    private String authorName;
-    private String authorSurname;
+    private final int authorId;
+    private final String authorName;
+    private final String authorSurname;
 
     public Author(int authorId, String authorName, String authorSurname) {
         this.authorId = authorId;

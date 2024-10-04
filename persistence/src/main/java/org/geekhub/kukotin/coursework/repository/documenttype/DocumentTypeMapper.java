@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.repository.documenttype;
 
-import org.geekhub.kukotin.coursework.service.documenttype.DocumentType;
+import org.geekhub.kukotin.coursework.service.entities.documenttype.DocumentType;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

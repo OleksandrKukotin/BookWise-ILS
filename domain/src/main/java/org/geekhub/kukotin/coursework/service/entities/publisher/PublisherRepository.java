@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.service.publisher;
+package org.geekhub.kukotin.coursework.service.entities.publisher;
 
 import java.util.List;
 

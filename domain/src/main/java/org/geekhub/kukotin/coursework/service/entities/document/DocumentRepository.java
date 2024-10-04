@@ -1,4 +1,4 @@
-package org.geekhub.kukotin.coursework.service.document;
+package org.geekhub.kukotin.coursework.service.entities.document;
 
 import java.util.List;
 

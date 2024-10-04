@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.publisher;
 
-import org.geekhub.kukotin.coursework.service.publisher.Publisher;
+import org.geekhub.kukotin.coursework.service.entities.publisher.Publisher;
 
 import java.util.List;
 

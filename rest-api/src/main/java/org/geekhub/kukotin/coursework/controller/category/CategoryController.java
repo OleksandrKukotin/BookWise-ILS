@@ -1,6 +1,6 @@
 package org.geekhub.kukotin.coursework.controller.category;
 
-import org.geekhub.kukotin.coursework.service.category.CategoryService;
+import org.geekhub.kukotin.coursework.service.entities.category.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

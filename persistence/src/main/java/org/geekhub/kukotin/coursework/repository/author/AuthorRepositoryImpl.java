@@ -1,7 +1,7 @@
 package org.geekhub.kukotin.coursework.repository.author;
 
-import org.geekhub.kukotin.coursework.service.author.Author;
-import org.geekhub.kukotin.coursework.service.author.AuthorRepository;
+import org.geekhub.kukotin.coursework.service.entities.author.Author;
+import org.geekhub.kukotin.coursework.service.entities.author.AuthorRepository;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
