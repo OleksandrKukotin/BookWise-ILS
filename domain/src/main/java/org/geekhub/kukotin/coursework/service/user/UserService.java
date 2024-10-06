@@ -3,6 +3,7 @@ package org.geekhub.kukotin.coursework.service.user;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -30,6 +31,10 @@ public class UserService {
         return users;
     }
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public void remove(String username) {
         authorityRepository.removeAuthority(username);
         userRepository.deleteByUsername(username);
@@ -41,5 +46,9 @@ public class UserService {
 
     public void changeRole(String username, String newRole) {
         authorityRepository.changeAuthority(username, newRole);
+    }
+
+    public void createPasswordResetTokenForUser(User user, String resetToken) {
+        // need to make token repository
     }
 }

@@ -2,6 +2,7 @@ package org.geekhub.kukotin.coursework.repository.user;
 
 import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserRepository;
+import org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -57,6 +59,13 @@ public class UserRepositoryImpl implements UserRepository {
         SqlParameterSource parameterSource = new MapSqlParameterSource(USERNAME_PARAM, username);
         String sql = "select * from users where username = :username;";
         return jdbcTemplate.queryForObject(sql, parameterSource, mapper);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        SqlParameterSource parameterSource = new MapSqlParameterSource("email", email);
+        String sql = "select * from users where email = :email;";
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
     }
 
     @Override
