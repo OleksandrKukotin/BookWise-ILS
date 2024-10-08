@@ -14,7 +14,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/register").setViewName("registration");
         registry.addViewController("/administrator/users").setViewName("userManagement");
-        registry.addViewController("/passwordReset").setViewName("forgotPasswordForm");
+        registry.addViewController("/forgot-password").setViewName("forgotPasswordForm");
+        registry.addViewController("/forgot-password-confirmation").setViewName("forgotPasswordConfirmation");
         // add session expired logout page
     }
 }
