@@ -54,10 +54,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         SqlParameterSource parameterSource = new MapSqlParameterSource(USERNAME_PARAM, username);
         String sql = "select * from users where username = :username;";
-        return jdbcTemplate.queryForObject(sql, parameterSource, mapper);
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
     }
 
     @Override
@@ -69,10 +69,21 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void toggleUser(String username) {
-        User user = findByUsername(username);
+        Optional<User> user = findByUsername(username);
+        if (user.isPresent()) {
+            SqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue(USERNAME_PARAM, username)
+                .addValue("enabled", !user.get().isEnabled());
+            jdbcTemplate.update("update users set enabled = :enabled where username = :username", parameterSource);
+        }
+    }
+
+    @Override
+    public void updatePassword(String username, String newPassword) {
         SqlParameterSource parameterSource = new MapSqlParameterSource()
             .addValue(USERNAME_PARAM, username)
-            .addValue("enabled", !user.isEnabled());
-        jdbcTemplate.update("update users set enabled = :enabled where username = :username", parameterSource);
+            .addValue("password", passwordEncoder.encode(newPassword));
+        String sql = "update users set password = :password where username = :username;";
+        jdbcTemplate.update(sql, parameterSource);
     }
 }

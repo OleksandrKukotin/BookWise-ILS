@@ -48,7 +48,8 @@ public class UserService {
         authorityRepository.changeAuthority(username, newRole);
     }
 
-    public void createPasswordResetTokenForUser(User user, String resetToken) {
-        // need to make token repository
+    public void changePassword(String username, String newPassword) {
+        userRepository.updatePassword(username, newPassword);
     }
+
 }

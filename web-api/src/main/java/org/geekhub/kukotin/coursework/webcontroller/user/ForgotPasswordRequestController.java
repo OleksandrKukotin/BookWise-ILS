@@ -1,6 +1,7 @@
 package org.geekhub.kukotin.coursework.webcontroller.user;
 
 import org.geekhub.kukotin.coursework.service.email.EmailService;
+import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetService;
 import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,13 @@ public class ForgotPasswordRequestController {
 
     private final UserService userService;
     private final EmailService emailService;
+    private final PasswordResetService passwordResetService;
 
-    public ForgotPasswordRequestController(UserService userService, EmailService emailService) {
+    public ForgotPasswordRequestController(UserService userService, EmailService emailService,
+                                           PasswordResetService passwordResetService) {
         this.userService = userService;
         this.emailService = emailService;
+        this.passwordResetService = passwordResetService;
     }
 
     @GetMapping
@@ -43,8 +47,8 @@ public class ForgotPasswordRequestController {
 
         if (user.isPresent()) {
             String resetToken = UUID.randomUUID().toString();
+            passwordResetService.createToken(resetToken, user.get().getUsername());
             String resetLink = "http://localhost:8080/passwordReset?token=" + resetToken;
-            userService.createPasswordResetTokenForUser(user.get(), resetToken);
             emailService.sendSimpleMessage(email, "Password Reset", "Click here to reset your password: "
                 + resetLink);
             return "/forgot-password-confirmation";

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,12 +35,17 @@ public class PasswordResetController {
         if (resetToken.isPresent()) {
             Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
             user.ifPresent(value -> model.addAttribute("user", value));
-            return "resetPasswordForm";
         } else {
             model.addAttribute("error", "Token not found.");
-            return "resetPasswordForm";
         }
+        return "resetPasswordForm";
     }
 
-    // TODO: implement POST mapping
+    @PostMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public String resetPassword(@ModelAttribute("user") UserDTO userDTO) {
+        userService.changePassword(userDTO.getUsername(), userDTO.getPassword());
+        passwordResetService.deleteToken("finishItDuringWorkday"); // TODO: finish the method
+        return "redirect:/login";
+    }
 }

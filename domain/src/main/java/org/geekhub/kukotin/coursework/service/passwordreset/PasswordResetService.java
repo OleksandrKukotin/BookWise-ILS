@@ -16,4 +16,16 @@ public class PasswordResetService {
     public Optional<PasswordResetToken> getByToken(String token) {
         return tokenRepository.findByToken(token);
     }
+
+    public void createToken(String token, String username) {
+        tokenRepository.save(token, username);
+    }
+
+    public boolean isTokenValid(String token) {
+        return tokenRepository.isTokenExpired(token);
+    }
+
+    public void deleteToken(String token) {
+        tokenRepository.delete(token);
+    }
 }

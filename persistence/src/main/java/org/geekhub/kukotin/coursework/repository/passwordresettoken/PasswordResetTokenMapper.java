@@ -13,10 +13,8 @@ public class PasswordResetTokenMapper implements RowMapper<PasswordResetToken> {
     @Override
     public PasswordResetToken mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new PasswordResetToken(
-            rs.getLong("id"),
             rs.getString("username"),
-            rs.getString("token"),
-            rs.getTimestamp("expiry_date").toInstant()
-            );
+            rs.getString("token")
+        );
     }
 }

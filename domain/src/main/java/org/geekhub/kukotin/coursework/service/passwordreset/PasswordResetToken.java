@@ -1,19 +1,13 @@
 package org.geekhub.kukotin.coursework.service.passwordreset;
 
-import java.time.Instant;
-
 public class PasswordResetToken {
 
-    private Long id;
-    private String email;
-    private String token;
-    private Instant expiryDate;
+    private final String email;
+    private final String token;
 
-    public PasswordResetToken(Long id, String email, String token, Instant expiryDate) {
-        this.id = id;
+    public PasswordResetToken(String email, String token) {
         this.email = email;
         this.token = token;
-        this.expiryDate = expiryDate;
     }
 
     public String getEmail() {
