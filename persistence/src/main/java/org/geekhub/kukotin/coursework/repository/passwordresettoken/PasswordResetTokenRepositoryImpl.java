@@ -7,11 +7,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Optional;
 
 @Repository
 public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepository {
 
+    public static final String TOKEN_PARAM = "token";
     NamedParameterJdbcTemplate jdbcTemplate;
     PasswordResetTokenMapper mapper;
 
@@ -21,9 +24,36 @@ public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepos
     }
 
     @Override
+    public void save(String token, String username) {
+        SqlParameterSource params = new MapSqlParameterSource()
+            .addValue(TOKEN_PARAM, token)
+            .addValue("username", username)
+            .addValue("expiryDate", Instant.now().plusSeconds(60L * 60 * 2)); // 2 hours
+        String sql = """
+            INSERT INTO password_reset_tokens (token, username, expiry_date)
+            values (:token, :username, :expiryDate);
+            """;
+        jdbcTemplate.update(sql, params);
+    }
+
+    @Override
+    public void delete(String token) {
+        SqlParameterSource params = new MapSqlParameterSource(TOKEN_PARAM, token);
+        jdbcTemplate.update("DELETE FROM password_reset_tokens WHERE token = :token", params);
+    }
+
+    @Override
     public Optional<PasswordResetToken> findByToken(String token) {
-        SqlParameterSource parameterSource = new MapSqlParameterSource("token", token);
+        SqlParameterSource parameterSource = new MapSqlParameterSource(TOKEN_PARAM, token);
         String sql = "select * from password_reset_tokens where token = :token";
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
+    }
+
+    @Override
+    public boolean isTokenExpired(String token) {
+        SqlParameterSource parameterSource = new MapSqlParameterSource(TOKEN_PARAM, token);
+        String sql = "select expiry_date from password_reset_tokens where token = :token";
+        Optional<Timestamp> expiryDate = Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, Timestamp.class));
+        return expiryDate.map(timestamp -> timestamp.before(Timestamp.from(Instant.now()))).orElse(true);
     }
 }
