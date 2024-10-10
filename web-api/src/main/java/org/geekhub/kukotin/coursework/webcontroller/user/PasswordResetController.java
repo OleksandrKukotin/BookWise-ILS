@@ -33,8 +33,10 @@ public class PasswordResetController {
     public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
         Optional<PasswordResetToken> resetToken = passwordResetService.getByToken(token);
         if (resetToken.isPresent()) {
-            Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
-            user.ifPresent(value -> model.addAttribute("user", value));
+            if (passwordResetService.isTokenValid(resetToken.get().getToken())) {
+                Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
+                user.ifPresent(value -> model.addAttribute("user", value));
+            }
         } else {
             model.addAttribute("error", "Token not found.");
         }

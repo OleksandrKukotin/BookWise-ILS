@@ -13,4 +13,8 @@ public class PasswordResetToken {
     public String getEmail() {
         return email;
     }
+
+    public String getToken() {
+        return token;
+    }
 }
