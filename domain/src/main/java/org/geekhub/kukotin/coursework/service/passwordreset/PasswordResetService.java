@@ -21,7 +21,7 @@ public class PasswordResetService {
         tokenRepository.save(token, username);
     }
 
-    public boolean isTokenValid(String token) {
+    public boolean isTokenExpired(String token) {
         return tokenRepository.isTokenExpired(token);
     }
 

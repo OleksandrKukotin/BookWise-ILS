@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Optional;
 
 @Controller()
 @RequestMapping("/password-reset")
+@SessionAttributes("tokenCache")
 public class PasswordResetController {
 
+    public static final String RESET_PASSWORD_FORM = "resetPasswordForm";
     private final UserService userService;
     private final PasswordResetService passwordResetService;
 
@@ -32,22 +37,26 @@ public class PasswordResetController {
     @ResponseStatus(HttpStatus.OK)
     public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
         Optional<PasswordResetToken> resetToken = passwordResetService.getByToken(token);
-        if (resetToken.isPresent()) {
-            if (passwordResetService.isTokenValid(resetToken.get().getToken())) {
-                Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
-                user.ifPresent(value -> model.addAttribute("user", value));
-            }
-        } else {
+        if (resetToken.isEmpty()) {
             model.addAttribute("error", "Token not found.");
+            return RESET_PASSWORD_FORM;
         }
-        return "resetPasswordForm";
+        if (passwordResetService.isTokenExpired(resetToken.get().getToken())) {
+            model.addAttribute("error", "Token is expired");
+            return RESET_PASSWORD_FORM;
+        }
+        Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
+        user.ifPresent(value -> model.addAttribute("user", value));
+        return RESET_PASSWORD_FORM;
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)
-    public String resetPassword(@ModelAttribute("user") UserDTO userDTO) {
+    public String resetPassword(@SessionAttribute("tokenCache") String token, @ModelAttribute("user") UserDTO userDTO,
+                                SessionStatus sessionStatus) {
         userService.changePassword(userDTO.getUsername(), userDTO.getPassword());
-        passwordResetService.deleteToken("finishItDuringWorkday"); // TODO: finish the method
+        passwordResetService.deleteToken(token);
+        sessionStatus.setComplete();
         return "redirect:/login";
     }
 }
