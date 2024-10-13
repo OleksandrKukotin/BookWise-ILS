@@ -2,6 +2,9 @@ package org.geekhub.kukotin.coursework.repository.user;
 
 import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -18,6 +21,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper mapper;
+    private final Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
     public UserRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate, PasswordEncoder passwordEncoder,
                               UserMapper mapper) {
@@ -64,7 +68,13 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> findByEmail(String email) {
         SqlParameterSource parameterSource = new MapSqlParameterSource("email", email);
         String sql = "select * from users where email = :email;";
-        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
+        try {
+
+            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
+        } catch (EmptyResultDataAccessException e) {
+            logger.error(e.getMessage());
+            return Optional.empty();
+        }
     }
 
     @Override

@@ -33,7 +33,7 @@ public class ForgotPasswordRequestController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public String passwordReset(Model model) {
+    public String showForgotPasswordForm(Model model) {
         UserDTO userDTO = new UserDTO();
         model.addAttribute("user", userDTO);
         return "forgotPasswordForm";
@@ -51,10 +51,10 @@ public class ForgotPasswordRequestController {
             String resetLink = "http://localhost:8080/passwordReset?token=" + resetToken;
             emailService.sendSimpleMessage(email, "Password Reset", "Click here to reset your password: "
                 + resetLink);
-            return "/forgot-password-confirmation";
+            return "forgotPasswordConfirmation";
         } else {
             model.addAttribute("error", "User not found.");
-            return "forgotPasswordForm";
+            return showForgotPasswordForm(model);
         }
     }
 }
