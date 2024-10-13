@@ -2,46 +2,51 @@ package org.geekhub.kukotin.coursework.webcontroller.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    public static final String ERROR_PAGE_FILE = "errorPage";
+    public static final String ERROR_MESSAGE_ATTRIBUTE = "errorMessage";
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<Object> handleAnyException(Exception e) {
+    public String handleAnyException(Exception e, Model model) {
         logger.error(e.getMessage(), e);
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        String errorMessage = "Well... Something went wrong";
+        model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, errorMessage);
+        return ERROR_PAGE_FILE;
     }
 
     @ExceptionHandler(value = HttpClientErrorException.NotFound.class)
-    public ResponseEntity<Object> handleNotFoundException(RuntimeException ex, WebRequest request) {
+    public String handleNotFoundException(RuntimeException ex, Model model) {
         logger.error("Resource not found: ", ex);
-        String responseMessage = "The resource you're looking for isn't here. " +
+        String errorMessage = "The resource you're looking for isn't here. " +
             "Please, check the URL or try searching for what you need.";
-        return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
+        model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, errorMessage);
+        return ERROR_PAGE_FILE;
     }
 
     @ExceptionHandler(value = HttpClientErrorException.Forbidden.class)
-    public ResponseEntity<Object> handleForbiddenException(RuntimeException ex, WebRequest request) {
+    public String handleForbiddenException(RuntimeException ex, Model model) {
         logger.error("Access denied: ", ex);
-        String responseMessage = "You don't have permission to access this. " +
+        String errorMessage = "You don't have permission to access this. " +
             "If you think this is a mistake, please contact support.";
-        return new ResponseEntity<>(responseMessage, HttpStatus.FORBIDDEN);
+        model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, errorMessage);
+        return ERROR_PAGE_FILE;
     }
 
     @ExceptionHandler(value = NoResourceFoundException.class)
-    public ResponseEntity<Object> handleNoResourceFoundException(NoResourceFoundException e) {
+    public String handleNoResourceFoundException(NoResourceFoundException e, Model model) {
         logger.error(e.getMessage());
-        String responseMessage = "There is nothing here. " +
+        String errorMessage = "There is nothing here. " +
             "If you think this is a mistake, please contact support.";
-        return new ResponseEntity<>(responseMessage, HttpStatus.NOT_FOUND);
+        model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, errorMessage);
+        return ERROR_PAGE_FILE;
     }
 }

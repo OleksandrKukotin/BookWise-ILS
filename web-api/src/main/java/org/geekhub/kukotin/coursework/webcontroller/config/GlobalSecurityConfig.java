@@ -29,7 +29,9 @@ public class GlobalSecurityConfig {
             .authorizeHttpRequests(webRequests -> webRequests
                 .requestMatchers("/", "/home/*", "/css/**").permitAll()
                 .requestMatchers("/registration", "/registration/submit").permitAll()
-                .requestMatchers("/passwordReset").permitAll())
+                .requestMatchers("/forgot-password").permitAll()
+                .requestMatchers("/passwordReset").permitAll()
+                .requestMatchers("/error").permitAll())
             .formLogin(requests -> requests
                 .loginPage("/login").permitAll())
             .logout(logoutRequest -> logoutRequest
