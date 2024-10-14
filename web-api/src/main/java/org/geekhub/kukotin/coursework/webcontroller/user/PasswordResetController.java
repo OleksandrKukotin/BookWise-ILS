@@ -40,10 +40,8 @@ public class PasswordResetController {
         if (resetToken.isEmpty()) {
             model.addAttribute("error", "Token not found.");
             return RESET_PASSWORD_FORM;
-        }
-        if (passwordResetService.isTokenExpired(resetToken.get().getToken())) {
+        } else if (passwordResetService.isTokenExpired(resetToken.get().getToken())) {
             model.addAttribute("error", "Token is expired");
-            return RESET_PASSWORD_FORM;
         }
         Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
         user.ifPresent(value -> model.addAttribute("user", value));
