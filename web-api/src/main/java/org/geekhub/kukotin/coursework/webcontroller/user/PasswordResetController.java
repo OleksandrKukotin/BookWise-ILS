@@ -2,7 +2,6 @@ package org.geekhub.kukotin.coursework.webcontroller.user;
 
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetService;
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetToken;
-import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -39,12 +38,9 @@ public class PasswordResetController {
         Optional<PasswordResetToken> resetToken = passwordResetService.getByToken(token);
         if (resetToken.isEmpty()) {
             model.addAttribute("error", "Token not found.");
-            return RESET_PASSWORD_FORM;
         } else if (passwordResetService.isTokenExpired(resetToken.get().getToken())) {
             model.addAttribute("error", "Token is expired");
         }
-        Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
-        user.ifPresent(value -> model.addAttribute("user", value));
         return RESET_PASSWORD_FORM;
     }
 
