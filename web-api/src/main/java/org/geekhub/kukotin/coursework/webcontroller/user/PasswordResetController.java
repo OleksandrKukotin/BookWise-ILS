@@ -2,6 +2,7 @@ package org.geekhub.kukotin.coursework.webcontroller.user;
 
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetService;
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetToken;
+import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ import java.util.Optional;
 public class PasswordResetController {
 
     public static final String RESET_PASSWORD_FORM = "resetPasswordForm";
+    public static final String ERROR_PAGE = "errorPage";
+    public static final String ERROR_MESSAGE_ATTRIBUTE = "errorMessage";
+
     private final UserService userService;
     private final PasswordResetService passwordResetService;
 
@@ -37,11 +41,20 @@ public class PasswordResetController {
     public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
         Optional<PasswordResetToken> resetToken = passwordResetService.getByToken(token);
         if (resetToken.isEmpty()) {
-            model.addAttribute("error", "Token not found.");
+            model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, "Token not found.");
+            return ERROR_PAGE;
         } else if (passwordResetService.isTokenExpired(resetToken.get().getToken())) {
-            model.addAttribute("error", "Token is expired");
+            model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, "Token is expired");
+            return ERROR_PAGE;
         }
-        return RESET_PASSWORD_FORM;
+        Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
+        if (user.isEmpty()) {
+            model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, "User not found");
+            return ERROR_PAGE;
+        } else {
+            model.addAttribute("user", UserConverter.toDto(user.get()));
+            return RESET_PASSWORD_FORM;
+        }
     }
 
     @PostMapping()
