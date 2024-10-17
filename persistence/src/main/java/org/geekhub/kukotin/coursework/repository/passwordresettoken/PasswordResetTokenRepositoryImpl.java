@@ -14,9 +14,9 @@ import java.util.Optional;
 @Repository
 public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepository {
 
-    public static final String TOKEN_PARAM = "token";
-    NamedParameterJdbcTemplate jdbcTemplate;
-    PasswordResetTokenMapper mapper;
+    private static final String TOKEN_PARAM = "token";
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final PasswordResetTokenMapper mapper;
 
     public PasswordResetTokenRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate, PasswordResetTokenMapper mapper) {
         this.jdbcTemplate = jdbcTemplate;
@@ -24,7 +24,7 @@ public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepos
     }
 
     @Override
-    public void save(String token, String username) {
+    public void save(String token, String username) { // fix this method
         SqlParameterSource params = new MapSqlParameterSource()
             .addValue(TOKEN_PARAM, token)
             .addValue("username", username)
