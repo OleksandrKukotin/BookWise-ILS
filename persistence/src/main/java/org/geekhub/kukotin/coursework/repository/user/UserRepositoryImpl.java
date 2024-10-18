@@ -39,8 +39,7 @@ public class UserRepositoryImpl implements UserRepository {
             .addValue("enabled", true)
             .addValue("authority", "ROLE_USER");
         String query = "insert into users(username, email, password, enabled) " +
-            "values(:username, :email, :password, :enabled);" +
-            "insert into authorities(username, authority) values(:username, :authority);";
+            "values(:username, :email, :password, :enabled);";
         jdbcTemplate.update(query, parameterSource);
     }
 
