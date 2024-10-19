@@ -24,11 +24,12 @@ public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepos
     }
 
     @Override
-    public void save(String token, String username) { // fix this method
+    public void save(String token, String username) {
+        Timestamp expiryDate = Timestamp.from(Instant.now().plusSeconds(60L * 60 * 2));
         SqlParameterSource params = new MapSqlParameterSource()
             .addValue(TOKEN_PARAM, token)
             .addValue("username", username)
-            .addValue("expiryDate", Instant.now().plusSeconds(60L * 60 * 2)); // 2 hours
+            .addValue("expiryDate", expiryDate); // 2 hours
         String sql = """
             INSERT INTO password_reset_tokens (token, username, expiry_date)
             values (:token, :username, :expiryDate);
