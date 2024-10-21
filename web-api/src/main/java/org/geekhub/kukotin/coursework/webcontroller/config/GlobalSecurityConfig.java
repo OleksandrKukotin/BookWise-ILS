@@ -30,7 +30,7 @@ public class GlobalSecurityConfig {
                 .requestMatchers("/", "/home/*", "/css/**").permitAll()
                 .requestMatchers("/registration", "/registration/submit").permitAll()
                 .requestMatchers("/forgot-password").permitAll()
-                .requestMatchers("/passwordReset").permitAll()
+                .requestMatchers("/passwordReset/**").permitAll()
                 .requestMatchers("/error").permitAll())
             .formLogin(requests -> requests
                 .loginPage("/login").permitAll())

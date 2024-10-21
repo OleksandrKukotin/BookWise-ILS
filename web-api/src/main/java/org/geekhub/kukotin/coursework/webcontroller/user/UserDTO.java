@@ -8,7 +8,6 @@ public class UserDTO {
     @NotEmpty(message = "Username can't be empty")
     @Size(min = 5, max = 255)
     private String username;
-    @NotEmpty(message = "User's email can't be empty")
     private String email;
     @NotEmpty(message = "User's password can't be empty")
     @Size(min = 8)
@@ -33,11 +32,11 @@ public class UserDTO {
         this.username = username;
     }
 
-    public @NotEmpty(message = "User's email can't be empty") String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NotEmpty(message = "User's email can't be empty") String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
