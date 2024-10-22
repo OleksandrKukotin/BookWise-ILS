@@ -9,8 +9,6 @@ public class UserDTO {
     @Size(min = 5, max = 255)
     private String username;
     private String email;
-    @NotEmpty(message = "User's password can't be empty")
-    @Size(min = 8)
     private String password;
     private String matchingPassword;
 
@@ -40,11 +38,11 @@ public class UserDTO {
         this.email = email;
     }
 
-    public @NotEmpty(message = "User's password can't be empty") @Size(min = 8) String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotEmpty(message = "User's password can't be empty") @Size(min = 8) String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

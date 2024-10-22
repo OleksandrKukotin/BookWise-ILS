@@ -5,7 +5,7 @@ import java.util.Optional;
 public interface PasswordResetTokenRepository {
 
     void save(String token, String username);
-    void delete(String token);
+    void delete(String username);
     Optional<PasswordResetToken> findByToken(String token);
     boolean isTokenExpired(String token);
 }

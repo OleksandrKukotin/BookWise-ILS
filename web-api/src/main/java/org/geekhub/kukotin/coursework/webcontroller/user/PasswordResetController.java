@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Optional;
 
 @Controller()
-@RequestMapping("/password-reset")
-@SessionAttributes("tokenCache")
+@RequestMapping("/passwordReset")
 public class PasswordResetController {
 
     public static final String RESET_PASSWORD_FORM = "resetPasswordForm";
@@ -47,7 +43,7 @@ public class PasswordResetController {
             model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, "Token is expired");
             return ERROR_PAGE;
         }
-        Optional<User> user = userService.getUserByEmail(resetToken.get().getEmail());
+        Optional<User> user = userService.getUserByUsername(resetToken.get().getEmail());
         if (user.isEmpty()) {
             model.addAttribute(ERROR_MESSAGE_ATTRIBUTE, "User not found");
             return ERROR_PAGE;
@@ -59,11 +55,9 @@ public class PasswordResetController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)
-    public String resetPassword(@SessionAttribute("tokenCache") String token, @ModelAttribute("user") UserDTO userDTO,
-                                SessionStatus sessionStatus) {
+    public String resetPassword(@ModelAttribute("user") UserDTO userDTO) {
         userService.changePassword(userDTO.getUsername(), userDTO.getPassword());
-        passwordResetService.deleteToken(token);
-        sessionStatus.setComplete();
-        return "redirect:/login";
+        passwordResetService.deleteToken(userDTO.getUsername());
+        return "/login";
     }
 }

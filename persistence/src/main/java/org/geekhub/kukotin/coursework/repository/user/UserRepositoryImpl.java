@@ -68,7 +68,6 @@ public class UserRepositoryImpl implements UserRepository {
         SqlParameterSource parameterSource = new MapSqlParameterSource("email", email);
         String sql = "select * from users where email = :email;";
         try {
-
             return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
         } catch (EmptyResultDataAccessException e) {
             logger.error(e.getMessage());

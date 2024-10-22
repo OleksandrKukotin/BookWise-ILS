@@ -52,4 +52,7 @@ public class UserService {
         userRepository.updatePassword(username, newPassword);
     }
 
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

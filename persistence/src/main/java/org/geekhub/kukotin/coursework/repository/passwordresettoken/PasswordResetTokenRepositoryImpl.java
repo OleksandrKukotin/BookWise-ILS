@@ -2,6 +2,9 @@ package org.geekhub.kukotin.coursework.repository.passwordresettoken;
 
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetToken;
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetTokenRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -14,6 +17,7 @@ import java.util.Optional;
 @Repository
 public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepository {
 
+    private static final Logger logger = LoggerFactory.getLogger(PasswordResetTokenRepositoryImpl.class);
     private static final String TOKEN_PARAM = "token";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final PasswordResetTokenMapper mapper;
@@ -38,16 +42,21 @@ public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepos
     }
 
     @Override
-    public void delete(String token) {
-        SqlParameterSource params = new MapSqlParameterSource(TOKEN_PARAM, token);
-        jdbcTemplate.update("DELETE FROM password_reset_tokens WHERE token = :token", params);
+    public void delete(String username) {
+        SqlParameterSource params = new MapSqlParameterSource("username", username);
+        jdbcTemplate.update("DELETE FROM password_reset_tokens WHERE username = :username", params);
     }
 
     @Override
     public Optional<PasswordResetToken> findByToken(String token) {
         SqlParameterSource parameterSource = new MapSqlParameterSource(TOKEN_PARAM, token);
         String sql = "select * from password_reset_tokens where token = :token";
-        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
+        } catch (EmptyResultDataAccessException e) {
+            logger.error(e.getMessage());
+            return Optional.empty();
+        }
     }
 
     @Override

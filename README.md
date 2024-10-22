@@ -18,8 +18,8 @@ A simple integrated library system for dooks/documents management in institution
         - If email and username are not used, register a new user and automatically log in. ✅
     - Users should be able to log in: ✅
         - User can use their username/email and password to login to the system ✅
-    - Users should be able to reset their passwords if forgotten.
-        - The recovery code/link should be sent to the user's email
+    - Users should be able to reset their passwords if forgotten. ✅
+        - The recovery code/link should be sent to the user's email. ✅
     - Support Remember-me feature: ✅
         - Implement remember-me functionality for persistent user sessions ✅
         - Allow users to enable or disable the remember-me functionality during login ✅
