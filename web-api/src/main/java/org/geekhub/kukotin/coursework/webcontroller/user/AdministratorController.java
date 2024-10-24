@@ -6,11 +6,13 @@ import org.geekhub.kukotin.coursework.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller()
 @RequestMapping("/administrator")
@@ -60,4 +62,18 @@ public class AdministratorController {
         return USER_MANAGEMENT_REDIRECT;
     }
 
+    @PostMapping("/users/resetPassword")
+    public String getResetPasswordForm(@RequestParam("username") String username, Model model) {
+        Optional<User> userOptional = userService.getUserByUsername(username);
+        userOptional.ifPresent(user -> model.addAttribute("user", UserConverter.toDto(user)));
+        return "resetPasswordForm";
+    }
+
+    @PostMapping("/users/resetPassword/confirm")
+    public String processResetPassword(@ModelAttribute("user") UserDTO dto) {
+        String emailNotification = "Your password was changed by admin. Your new password: " + dto.getPassword();
+        emailService.sendSimpleMessage(dto.getEmail(), "Your new password in BookWise ILS!", emailNotification);
+        userService.changePassword(dto.getUsername(), dto.getPassword());
+        return USER_MANAGEMENT_REDIRECT;
+    }
 }

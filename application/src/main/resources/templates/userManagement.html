@@ -40,6 +40,11 @@
                     <button type="submit" th:text="${user.isEnabled()} ? 'Disable' : 'Enable'"></button>
                 </form>
 
+                <form th:action="@{/administrator/users/resetPassword}" method="post">
+                    <input type="hidden" th:value="${user.getUsername()}" name="username"/>
+                    <button type="submit">Reset Password</button>
+                </form>
+
                 <form th:action="@{/administrator/users/changeRole}" method="post">
                     <input type="hidden" th:value="${user.username}" name="username"/>
                     <select name="role">
