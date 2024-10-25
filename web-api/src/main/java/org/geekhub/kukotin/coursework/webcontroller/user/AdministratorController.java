@@ -3,6 +3,8 @@ package org.geekhub.kukotin.coursework.webcontroller.user;
 import org.geekhub.kukotin.coursework.service.email.EmailService;
 import org.geekhub.kukotin.coursework.service.user.User;
 import org.geekhub.kukotin.coursework.service.user.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RequestMapping("/administrator")
 public class AdministratorController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AdministratorController.class);
     public static final String USER_MANAGEMENT_REDIRECT = "redirect:/administrator/users";
     private final UserService userService;
     private final EmailService emailService;
@@ -71,8 +74,13 @@ public class AdministratorController {
 
     @PostMapping("/users/resetPassword/confirm")
     public String processResetPassword(@ModelAttribute("user") UserDTO dto) {
-        String emailNotification = "Your password was changed by admin. Your new password: " + dto.getPassword();
-        emailService.sendSimpleMessage(dto.getEmail(), "Your new password in BookWise ILS!", emailNotification);
+        if (dto.getEmail() == null || dto.getEmail().isBlank()) {
+            String log = dto.getUsername() + " has no email address";
+            logger.info(log);
+        } else {
+            String emailNotification = "Your password was changed by admin. Your new password: " + dto.getPassword();
+            emailService.sendSimpleMessage(dto.getEmail(), "Your new password in BookWise ILS!", emailNotification);
+        }
         userService.changePassword(dto.getUsername(), dto.getPassword());
         return USER_MANAGEMENT_REDIRECT;
     }

@@ -34,7 +34,7 @@ A simple integrated library system for dooks/documents management in institution
     - Create an admin interface:
         - Restrict access to the admin panel to users with appropriate roles. ✅
         - Implement features such as user management, role assignment, resource management, etc. ✅
-        - Admin can reset the user password. Email must be sent to the user's mail.
+        - Admin can reset the user password. Email must be sent to the user's mail. ✅
         - Super Administrator can make regular user admin and backward ✅
         - Super Administrator can exist only in one instance in the system. This role cannot be assigned to anyone else.
         - If your system has additional roles - they can be assigned from the admin panel.

@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class GlobalSecurityConfig {
 
     private static final String ROLE_LIBRARIAN = "LIBRARIAN";
+    public static final String ROLE_ADMIN = "ADMIN";
     private static final int REMEMBER_ME_TOKEN_VALIDITY_SECONDS = 7 * 24 * 60 * 60; // 7 days
     @Value("${REMEMBER_ME_KEY}")
     private String rememberMeKey;
@@ -25,7 +26,8 @@ public class GlobalSecurityConfig {
         http
             .authorizeHttpRequests(moderationRequests -> moderationRequests
                 .requestMatchers("/api/**").hasRole(ROLE_LIBRARIAN)
-                .requestMatchers("/administrator/**").hasRole("ADMIN"))
+                .requestMatchers("/administrator/**").hasRole(ROLE_ADMIN)
+                .requestMatchers("/users/**").hasRole(ROLE_ADMIN))
             .authorizeHttpRequests(webRequests -> webRequests
                 .requestMatchers("/", "/home/*", "/css/**").permitAll()
                 .requestMatchers("/registration", "/registration/submit").permitAll()
@@ -49,7 +51,7 @@ public class GlobalSecurityConfig {
     @Bean
     static RoleHierarchy roleHierarchy() {
         return RoleHierarchyImpl.withDefaultRolePrefix()
-            .role("ADMIN").implies(ROLE_LIBRARIAN)
+            .role(ROLE_ADMIN).implies(ROLE_LIBRARIAN)
             .role(ROLE_LIBRARIAN).implies("USER")
             .role("USER").implies("GUEST")
             .build();
