@@ -22,13 +22,18 @@ public class UserService {
         authorityRepository.addAuthority(user.getUsername(), user.getRole());
     }
 
-    public List<User> getAll() {
-        List<User> users = userRepository.findAll();
+    public List<User> getUsersPage(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        List<User> users = userRepository.findAllPaginated(offset, pageSize);
         users.forEach(user -> {
             String role = authorityRepository.getAuthority(user.getUsername());
             user.setRole(role);
         });
         return users;
+    }
+
+    public int getTotalUsersCount() {
+        return userRepository.countAllUsers();
     }
 
     public Optional<User> getUserByEmail(String email) {

@@ -14,7 +14,7 @@
     <h2>Your one-stop solution for managing library resources with ease</h2>
     <p>Welcome, Stranger!</p>
     <ul style="list-style-type: none">
-        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/administrator/users">Admin page</a></li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/administrator/users?page=1&size=3">Admin page</a></li>
         <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
         <li sec:authorize="isAnonymous()"><a href="/registration">Sign Up</a></li>
         <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>

@@ -52,8 +52,17 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
-        return jdbcTemplate.query("select * from users", mapper);
+    public List<User> findAllPaginated(int offset, int limit) {
+        SqlParameterSource parameterSource = new MapSqlParameterSource()
+            .addValue("offset", offset)
+            .addValue("limit", limit);
+        return jdbcTemplate.query("select * from users limit :limit offset :offset", parameterSource, mapper);
+    }
+
+    @Override
+    public int countAllUsers() {
+        List<User> users = jdbcTemplate.query("select * from users", mapper);
+        return users.size();
     }
 
     @Override

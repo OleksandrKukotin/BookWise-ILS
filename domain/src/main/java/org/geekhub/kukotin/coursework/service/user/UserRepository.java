@@ -7,9 +7,10 @@ public interface UserRepository {
 
     void save(User user);
     void deleteByUsername(String username);
-    List<User> findAll();
+    List<User> findAllPaginated(int offset, int limit);
     Optional<User> findByEmail(String email);
     Optional<User> findByUsername(String username);
     void toggleUser(String username);
     void updatePassword(String username, String newPassword);
+    int countAllUsers();
 }

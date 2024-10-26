@@ -61,6 +61,15 @@
         </tr>
         </tbody>
     </table>
+    <div class="pagination">
+        <a th:href="@{/administrator/users(page=${currentPage - 1}, size=${size})}"
+           th:if="${currentPage > 0}">Previous</a>
+
+        <span>Page <span th:text="${currentPage + 1}"></span> of <span th:text="${totalPages}"></span></span>
+
+        <a th:href="@{/administrator/users(page=${currentPage + 1}, size=${size})}"
+           th:if="${currentPage < totalPages - 1}">Next</a>
+    </div>
     <a href="/home">Back to Home</a>
 </div>
 
