@@ -63,7 +63,7 @@
     </table>
     <div class="pagination">
         <a th:href="@{/administrator/users(page=${currentPage - 1}, size=${size})}"
-           th:if="${currentPage > 0}">Previous</a>
+           th:if="${currentPage > 0}">Previous</a> <!--TODO: fix that-->
 
         <span>Page <span th:text="${currentPage + 1}"></span> of <span th:text="${totalPages}"></span></span>
 
