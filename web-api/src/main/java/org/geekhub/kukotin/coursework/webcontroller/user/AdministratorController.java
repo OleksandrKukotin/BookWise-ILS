@@ -36,7 +36,7 @@ public class AdministratorController {
         List<String> roles = List.of("ROLE_USER", "ROLE_ADMIN", "ROLE_LIBRARIAN");
         model.addAttribute("users", users);
         model.addAttribute("roles", roles);
-        model.addAttribute("totalPages", userService.getTotalUsersCount() / size); // TODO: fix that
+        model.addAttribute("totalPages", (int) Math.ceil((double) userService.getTotalUsersCount() / size));
         model.addAttribute("currentPage", page);
         model.addAttribute("size", size);
         return "userManagement";
