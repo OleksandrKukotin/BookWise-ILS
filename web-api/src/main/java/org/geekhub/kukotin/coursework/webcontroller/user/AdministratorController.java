@@ -33,8 +33,8 @@ public class AdministratorController {
     @GetMapping("/users")
     public String listUsers(@RequestParam("page") int page, @RequestParam("size") int size, Model model) {
         List<User> users = userService.getUsersPage(page, size);
-        List<String> roles = List.of("ROLE_USER", "ROLE_ADMIN", "ROLE_LIBRARIAN");
         model.addAttribute("users", users);
+        List<String> roles = List.of("ROLE_USER", "ROLE_ADMIN", "ROLE_LIBRARIAN");
         model.addAttribute("roles", roles);
         model.addAttribute("totalPages", (int) Math.ceil((double) userService.getTotalUsersCount() / size));
         model.addAttribute("currentPage", page);

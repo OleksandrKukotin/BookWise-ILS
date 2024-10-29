@@ -54,10 +54,10 @@ A simple integrated library system for dooks/documents management in institution
         - Ensure separation of concerns between layers for better maintainability. ✅
         - Write clean and modular code following coding best practices.
         - All API endpoints must be in the “rest-api” gradle module. Business logic must be in the ”domain” module
-    - API:
+    - API: ✅
         - WEB layer should expose at least one endpoint for each of GET, POST, PUT, DELETE http methods. ✅
-        - GET-all API should support pagination.
-        - Data must be passed via request bodies, path parameters, and path variables.
+        - GET-all API should support pagination. ✅
+        - Data must be passed via request bodies, path parameters, and path variables. ✅
     - Data integrity:
         - Implement server-side validation for all incoming data.
         - Prevent common security vulnerabilities such as SQL injection and cross-site scripting (XSS). ✅

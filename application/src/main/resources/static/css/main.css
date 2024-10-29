@@ -1,63 +1,105 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+/* Reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
 }
 
 .container {
-    max-width: 600px; /* Wider container */
+    max-width: 800px;
     margin: 50px auto;
-    background: #fff;
-    padding: 30px; /* Increased padding for cleaner look */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
-    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 20px;
 }
 
+/* Table styling */
 table {
-    width: 100%; /* Make table take full width */
+    width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 th, td {
+    padding: 12px 15px;
     text-align: left;
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #4a5568;
+    color: #f7fafc;
+    font-weight: 600;
 }
 
+tr:nth-child(even) {
+    background-color: #edf2f7;
+}
+
+tr:hover {
+    background-color: #e2e8f0;
+}
+
+/* Button styling */
 button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #28a745;
+    padding: 8px 12px;
+    background-color: #4299e1;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
+    font-size: 14px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #3182ce;
 }
 
+/* Select styling */
 select {
     padding: 8px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #cbd5e0;
+    font-size: 14px;
 }
 
+/* Pagination styling */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: #3182ce;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+}
+
+/* Link styling */
 a {
-    color: #007bff;
+    color: #4299e1;
     text-decoration: none;
 }
 
@@ -65,12 +107,17 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Responsive adjustments */
 @media (max-width: 600px) {
     .container {
-        padding: 20px;
+        padding: 15px;
     }
 
     table, th, td {
-        font-size: 14px; /* Smaller text for smaller screens */
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 13px;
     }
 }
