@@ -2,8 +2,6 @@ package org.geekhub.kukotin.coursework.repository.passwordresettoken;
 
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetToken;
 import org.geekhub.kukotin.coursework.service.passwordreset.PasswordResetTokenRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,7 +15,6 @@ import java.util.Optional;
 @Repository
 public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(PasswordResetTokenRepositoryImpl.class);
     private static final String TOKEN_PARAM = "token";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final PasswordResetTokenMapper mapper;
@@ -48,15 +45,10 @@ public class PasswordResetTokenRepositoryImpl implements PasswordResetTokenRepos
     }
 
     @Override
-    public Optional<PasswordResetToken> findByToken(String token) {
+    public Optional<PasswordResetToken> findByToken(String token) throws EmptyResultDataAccessException {
         SqlParameterSource parameterSource = new MapSqlParameterSource(TOKEN_PARAM, token);
         String sql = "select * from password_reset_tokens where token = :token";
-        try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
-        } catch (EmptyResultDataAccessException e) {
-            logger.error(e.getMessage());
-            return Optional.empty();
-        }
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, parameterSource, mapper));
     }
 
     @Override

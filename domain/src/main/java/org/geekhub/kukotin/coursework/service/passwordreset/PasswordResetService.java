@@ -1,5 +1,7 @@
 package org.geekhub.kukotin.coursework.service.passwordreset;
 
+import org.geekhub.kukotin.coursework.service.exceptions.PasswordResetException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,7 +16,12 @@ public class PasswordResetService {
     }
 
     public Optional<PasswordResetToken> getByToken(String token) {
-        return tokenRepository.findByToken(token);
+        try {
+            return tokenRepository.findByToken(token);
+        } catch (EmptyResultDataAccessException e) {
+            String errorMessage = "Token not found " + token;
+            throw new PasswordResetException(errorMessage, e);
+        }
     }
 
     public void createToken(String token, String username) {
