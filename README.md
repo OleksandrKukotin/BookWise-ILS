@@ -46,8 +46,8 @@ A simple integrated library system for dooks/documents management in institution
         - Write integration tests to validate interactions between components.
         - Pipelines are green! ✅
     - Exceptions - TODO NEXT
-        - Use custom exception classes for different types of errors.
-        - Provide meaningful error messages and appropriate HTTP status codes in responses.
+        - Use custom exception classes for different types of errors. ✅
+        - Provide meaningful error messages and appropriate HTTP status codes in responses. ✅
         - Exception handlers should be ready for any backend error. Users never should see a white screen or infinite redirect. Register custom error-pages
     - Structure: - TODO NEXT
         - Organize the application into layers such as presentation, service, and data access. ✅
