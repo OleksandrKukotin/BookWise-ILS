@@ -45,11 +45,11 @@ A simple integrated library system for dooks/documents management in institution
         - Write unit tests using JUnit and Mockito for all business logic.
         - Write integration tests to validate interactions between components.
         - Pipelines are green! ✅
-    - Exceptions - TODO NEXT
+    - **Exceptions - TODO NEXT**
         - Use custom exception classes for different types of errors. ✅
         - Provide meaningful error messages and appropriate HTTP status codes in responses. ✅
         - Exception handlers should be ready for any backend error. Users never should see a white screen or infinite redirect. Register custom error-pages
-    - Structure: - TODO NEXT
+    - **Structure: - TODO NEXT**
         - Organize the application into layers such as presentation, service, and data access. ✅
         - Ensure separation of concerns between layers for better maintainability. ✅
         - Write clean and modular code following coding best practices.
@@ -58,7 +58,7 @@ A simple integrated library system for dooks/documents management in institution
         - WEB layer should expose at least one endpoint for each of GET, POST, PUT, DELETE http methods. ✅
         - GET-all API should support pagination. ✅
         - Data must be passed via request bodies, path parameters, and path variables. ✅
-    - Data integrity:
+    - **Data integrity - TODO NEXT**:
         - Implement server-side validation for all incoming data.
         - Prevent common security vulnerabilities such as SQL injection and cross-site scripting (XSS). ✅
     - IO/NIO:
