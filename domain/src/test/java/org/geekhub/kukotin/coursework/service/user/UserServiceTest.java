@@ -1,18 +1,26 @@
 package org.geekhub.kukotin.coursework.service.user;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
-    // implement this
 
-    @BeforeEach
-    void setUp() {
-    }
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private AuthorityRepository authorityRepository;
+
+    @InjectMocks
+    private UserService userService;
 
     @Test
-    void add() {
+    void testAddUser() {
+        User testUser = new User("John Doe", "example@gmail.com", "ROLE_USER", "1111",
+            true);
+
+        userService.add(testUser);
     }
 
     @Test
