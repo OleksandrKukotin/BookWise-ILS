@@ -1,26 +1,26 @@
 package org.geekhub.kukotin.coursework.service.user;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
     // realize how to use mocks and why they don't work in the following test cases
-    @Mock
     private UserRepository userRepository;
 
-    @Mock
     private AuthorityRepository authorityRepository;
 
-    @InjectMocks
     private UserService userService;
+
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+
+    }
 
     @Test
     void testAddUser() {
